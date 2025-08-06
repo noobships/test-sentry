@@ -7,18 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import {
-  Monitor,
-  Smartphone,
-  Tablet,
-  RotateCcw,
-  ExternalLink,
-  Zap,
-  Moon,
-  Sun,
-  RefreshCw,
-  AlertCircle,
-} from "lucide-react"
+import { Monitor, Smartphone, Tablet, RotateCcw, ExternalLink, Zap, Moon, Sun, RefreshCw, AlertCircle } from 'lucide-react'
 import { useTheme } from "next-themes"
 
 const devices = [
@@ -165,7 +154,7 @@ export default function ResponsiveDesignTester() {
                
 
                 {/* Screen Content */}
-                <div className="w-full h-full bg-white dark:bg-neutral-950 rounded-[1.8rem] overflow-hidden relative">
+                <div className="w-full h-full bg-white dark:bg-neutral-950 rounded-[1.8rem] overflow-hidden relative device-preview-container">
                   {iframeError ? (
                     <div className="flex items-center justify-center h-full bg-neutral-50 dark:bg-neutral-900">
                       <div className="text-center p-4">
@@ -176,7 +165,7 @@ export default function ResponsiveDesignTester() {
                   ) : (
                     <iframe
                       src={url}
-                      className="w-full h-full border-0 bg-white dark:bg-neutral-950"
+                      className="w-full h-full border-0 bg-white dark:bg-neutral-950 scrollable-no-bars"
                       title="Website Preview"
                       onError={() => setIframeError(true)}
                       style={{
@@ -212,7 +201,7 @@ export default function ResponsiveDesignTester() {
             >
               {/* Screen */}
               <div
-                className="bg-white dark:bg-neutral-950 rounded-[1.2rem] overflow-hidden relative transition-colors duration-200"
+                className="bg-white dark:bg-neutral-950 rounded-[1.2rem] overflow-hidden relative transition-colors duration-200 device-preview-container"
                 style={{
                   width: scaledWidth,
                   height: scaledHeight,
@@ -228,7 +217,7 @@ export default function ResponsiveDesignTester() {
                 ) : (
                   <iframe
                     src={url}
-                    className="w-full h-full border-0 bg-white dark:bg-neutral-950"
+                    className="w-full h-full border-0 bg-white dark:bg-neutral-950 scrollable-no-bars"
                     title="Website Preview"
                     onError={() => setIframeError(true)}
                     style={{
@@ -263,7 +252,7 @@ export default function ResponsiveDesignTester() {
           >
             {/* Screen */}
             <div
-              className="bg-white dark:bg-neutral-950 rounded-lg overflow-hidden relative transition-colors duration-200"
+              className="bg-white dark:bg-neutral-950 rounded-lg overflow-hidden relative transition-colors duration-200 device-preview-container"
               style={{
                 width: scaledWidth,
                 height: scaledHeight,
@@ -279,7 +268,7 @@ export default function ResponsiveDesignTester() {
               ) : (
                 <iframe
                   src={url}
-                  className="w-full h-full border-0 bg-white dark:bg-neutral-950"
+                  className="w-full h-full border-0 bg-white dark:bg-neutral-950 scrollable-no-bars"
                   title="Website Preview"
                   onError={() => setIframeError(true)}
                   style={{

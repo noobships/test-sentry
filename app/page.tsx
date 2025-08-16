@@ -265,8 +265,8 @@ export default function ResponsiveDesignTester() {
         {/* Device Preview */}
         <div className="relative">
           <div
-            className={`bg-card shadow-lg rounded-lg overflow-hidden border transition-all duration-300 ${
-              isFocused ? "border-primary shadow-2xl" : "border-border"
+            className={`bg-card shadow-lg rounded-lg overflow-hidden transition-all duration-300 ${
+              isFocused ? "shadow-2xl" : "border border-border"
             }`}
             style={{
               width: scaledWidth,

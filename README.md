@@ -1,199 +1,114 @@
-# 🚀 TestSentry
+# 🛡️ TestSentry
 
-**The Next-Generation Cross-Device Testing Platform**
+**A simple, powerful cross-device testing tool for web developers**
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://testsentry.vercel.app)
-[![MIT License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live-testsentry.vercel.app-brightgreen)](https://testsentry.vercel.app)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-> **Revolutionizing responsive web testing with intelligent automation, visual regression detection, and developer-first workflows.**
+> Currently in early development. Built by a solo developer who got tired of manually resizing browser windows and running the same tests over and over.
 
-## 🌟 Vision
+## What is TestSentry?
 
-TestSentry transforms how developers test responsive web applications. Instead of manually resizing browser windows or juggling multiple devices, TestSentry provides a unified platform for comprehensive cross-device testing with intelligent automation and visual regression detection.
+Right now, it's a straightforward tool where you can:
+- Enter any website URL 
+- See how it looks across iPhone, iPad, and desktop simultaneously
+- Switch between portrait/landscape orientations
+- Focus on individual devices for detailed inspection
 
-**🎯 Live Demo**: [testsentry.vercel.app](https://testsentry.vercel.app)
+**[Try the live demo →](https://testsentry.vercel.app)**
 
-## ✨ Current Features
+## The Vision
 
-### 🖥️ Multi-Device Preview
-- **Real device dimensions** - iPhone 14 Pro, iPad Pro, MacBook, Desktop, and more
-- **Portrait/Landscape switching** - Test both orientations instantly  
-- **Zoom controls** - Detailed inspection with smooth scaling
-- **Focus mode** - Isolate individual devices for detailed testing
+I'm building TestSentry because I'm sick of repetitive manual testing. Here's the plan:
 
-### 🎨 Developer Experience
-- **Clean, modern interface** - Built with shadcn/ui and Tailwind CSS
-- **Dark/Light themes** - Comfortable testing in any environment
-- **Keyboard shortcuts** - Power user workflows
-- **Real-time URL updates** - Test any website instantly
+### Phase 1: Better Device Testing
+- [ ] Custom screen sizes and device frames
+- [ ] Remove scrollbars for cleaner previews
+- [ ] **Cross-browser testing** (Chrome, Firefox, Safari, Edge - like BrowserStack)
+- [ ] **Cross-platform testing** (Windows, macOS, Linux, mobile)
 
-### 🔧 Technical Excellence
-- **Next.js 15** with App Router - Modern React architecture
-- **TypeScript** - Full type safety and developer experience
-- **Responsive design** - Mobile-first approach
-- **Performance optimized** - Fast rendering and smooth interactions
+### Phase 2: AI-Powered Automation (The Game Changer)
+- [ ] **Auto-testing on save** - Paste your localhost URL, tool automatically tests every time you save code
+- [ ] **AI agents that actually use your app** - Inspired by OpenAI's ChatGPT Agent and Anthropic's Computer Use
+- [ ] **Background monitoring agents** - Like Cursor's background agents, but for web testing
+- [ ] **Intelligent issue detection** - AI catches visual bugs, broken flows, performance issues
 
-## 🚀 Planned Features (Roadmap)
+### Phase 3: Smart Monitoring
+- [ ] **24/7 background testing** - Catches issues before users do
+- [ ] **Core Web Vitals tracking** - No more manual Lighthouse runs
+- [ ] **Visual regression detection** - AI compares screenshots and flags changes
+- [ ] **Accessibility monitoring** - Continuous WCAG compliance checking
 
-### 🎯 Phase 1: Advanced Testing (Q1 2025)
-- **Custom screen sizes** - Define any viewport dimensions
-- **Device frame toggle** - Show/hide bezels (Figma-inspired)
-- **Scrollbar removal** - Clean, distraction-free previews
-- **Multiple environments** - Test staging, production, and local simultaneously
+### Phase 4: Team Features
+- [ ] Save and share test results
+- [ ] Team collaboration and alerts
+- [ ] Integration with CI/CD pipelines
 
-### 🤖 Phase 2: Intelligent Automation (Q2 2025)
-- **Background testing** - Continuous monitoring (Cursor-inspired)
-- **Visual regression detection** - AI-powered change detection
-- **Performance monitoring** - Core Web Vitals tracking
-- **Accessibility scanning** - WCAG compliance checking
+## Why This Matters
 
-### 📊 Phase 3: Advanced Analytics (Q3 2025)
-- **Test history & reporting** - Comprehensive testing insights
-- **Screenshot automation** - Batch capture across devices
-- **Performance benchmarking** - Cross-device performance comparison
-- **Team collaboration** - Shared testing workflows
+**Current workflow:**
+1. Make code changes
+2. Manually resize browser window
+3. Test on different devices/browsers manually
+4. Run Lighthouse manually
+5. Check for visual bugs manually
+6. Repeat for every change
 
-### 🔌 Phase 4: Ecosystem Integration (Q4 2025)
-- **CI/CD integration** - GitHub Actions, Vercel, Netlify
-- **Design tool plugins** - Figma, Sketch integration
-- **API access** - Programmatic testing capabilities
-- **Mobile companion app** - On-device testing
+**TestSentry workflow:**
+1. Paste your URL once
+2. AI agents automatically test everything on every save
+3. Get notified only when something actually breaks
+4. Focus on building, not testing
 
-## 🎯 Market Opportunity
+## Tech Stack
 
-### The Problem
-- **Manual testing is slow** - Developers waste hours resizing windows
-- **Existing tools are limited** - Basic device emulation without intelligence
-- **No automation** - Repetitive testing tasks aren't streamlined
-- **Poor collaboration** - Hard to share testing results with teams
+- **Next.js 15** with TypeScript
+- **Tailwind CSS** + **shadcn/ui** for styling
+- **Playwright** (planned for cross-browser automation)
+- **AI integrations** (planned for intelligent testing agents)
 
-### Our Solution
-TestSentry combines the simplicity of responsive design tools with the power of automated testing platforms, creating a new category of intelligent cross-device testing.
+## Getting Started
 
-### Market Size
-- **$4.2B** - Global software testing market (2024)
-- **23% CAGR** - Expected growth through 2030
-- **2M+** - Web developers worldwide who need better testing tools
-
-## 🏗️ Technical Architecture
-
-### Frontend
-- **Next.js 15** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first styling
-- **Radix UI** - Accessible component primitives
-- **Framer Motion** - Smooth animations
-
-### Backend (Planned)
-- **Vercel Functions** - Serverless API endpoints
-- **Supabase** - Database and authentication
-- **Upstash Redis** - Caching and session management
-- **Vercel Blob** - File storage for screenshots
-
-### Testing & Quality
-- **Playwright** - End-to-end testing
-- **Jest** - Unit testing
-- **ESLint + Prettier** - Code quality
-- **Husky** - Git hooks for quality gates
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+ and npm
-- Git
-
-### Quick Start
-\`\`\`bash
-# Clone the repository
+```bash
 git clone https://github.com/yourusername/testsentry.git
 cd testsentry
-
-# Install dependencies
 npm install
-
-# Start development server
 npm run dev
+```
 
-# Open http://localhost:3000
-\`\`\`
+Open `http://localhost:3000` and test any website.
 
-### Development
-\`\`\`bash
-# Run tests
-npm test
+## Contributing
 
-# Build for production
-npm run build
+This is a new open source project and I'd love help! Whether you:
+- Find bugs 🐛
+- Have feature ideas 💡
+- Want to contribute code 🔧
+- Know about AI automation 🤖
 
-# Start production server
-npm start
+All skill levels welcome.
 
-# Lint code
-npm run lint
-\`\`\`
+## Current Status
 
-## 🤝 Contributing
+- ✅ Basic multi-device preview working
+- ✅ Clean, simple interface
+- ✅ Deployed and stable
+- 🚧 Planning AI automation features
+- 🚧 Researching cross-browser testing implementation
+- 📋 Designing the agent-based testing architecture
 
-We welcome contributions! TestSentry is built by developers, for developers.
+## Contact
 
-**Ways to contribute:**
-- 🐛 **Bug reports** - Help us identify and fix issues
-- 💡 **Feature requests** - Share your ideas for improvements  
-- 🔧 **Code contributions** - Implement features and fixes
-- 📝 **Documentation** - Improve guides and examples
-- 🎨 **Design** - Enhance UI/UX and user experience
+Built by [@creativecoder](https://github.com/creativecoder) 
 
-See our [Contributing Guide](CONTRIBUTING.md) for detailed information.
+- Email: creativecoder.crco@gmail.com
+- Have ideas or feedback? [Open an issue](https://github.com/yourusername/testsentry/issues)
 
-## 📊 Project Stats
+## License
 
-- **🌟 GitHub Stars**: Growing community of developers
-- **🔧 Contributors**: Open to all skill levels
-- **📈 Commits**: Active development
-- **🚀 Deployments**: Continuous delivery
-
-## 🎯 Why TestSentry?
-
-### For Developers
-- **Save time** - Test multiple devices simultaneously
-- **Catch issues early** - Visual regression detection
-- **Automate workflows** - Background testing and monitoring
-- **Better collaboration** - Share results with teams
-
-### For Companies
-- **Reduce QA costs** - Automated testing workflows
-- **Improve quality** - Comprehensive cross-device coverage
-- **Faster releases** - Integrated CI/CD testing
-- **Better user experience** - Ensure consistency across devices
-
-### For the Industry
-- **Open source** - Community-driven development
-- **Modern architecture** - Built with latest technologies
-- **Extensible** - Plugin system for customization
-- **Standards-compliant** - Accessibility and performance focused
-
-## 🏆 Recognition & Support
-
-**Seeking investment and partnerships** to accelerate development and bring TestSentry to the global developer community.
-
-**Interested in supporting TestSentry?**
-- 🌟 **Star this repository** - Show your support
-- 🐦 **Follow us on Twitter** - [@testsentry](https://twitter.com/testsentry)
-- 💬 **Join our Discord** - [Community chat](https://discord.gg/testsentry)
-- 📧 **Contact us** - hello@testsentry.dev
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## 🚀 Built with v0.dev
-
-TestSentry is proudly built using [v0.dev](https://v0.dev), showcasing the power of AI-assisted development for creating sophisticated web applications.
+MIT License - use it however you want.
 
 ---
 
-**⭐ Star this repository if you find TestSentry useful!**
-
-*Made with ❤️ by developers, for developers*
+**Like this project? Give it a ⭐**

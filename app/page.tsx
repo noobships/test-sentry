@@ -20,8 +20,6 @@ import {
   Smartphone,
   Tablet,
   RotateCcw,
-  ExternalLink,
-  Zap,
   Moon,
   Sun,
   AlertCircle,
@@ -332,9 +330,7 @@ export default function ResponsiveDesignTester() {
           <div className="flex items-center justify-between gap-2 md:gap-4">
             {/* Left: Brand - Hidden on mobile */}
             <div className="hidden md:flex items-center gap-3 flex-shrink-0">
-              <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center transition-colors duration-200">
-                <Zap className="w-4 h-4 text-background" />
-              </div>
+              <span className="text-2xl">🆃🅂</span>
               <div>
                 <h1 className="text-xl font-bold text-foreground">TestSentry</h1>
               </div>
@@ -342,23 +338,18 @@ export default function ResponsiveDesignTester() {
 
             {/* Mobile: Just the icon */}
             <div className="md:hidden flex items-center flex-shrink-0">
-              <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center transition-colors duration-200">
-                <Zap className="w-4 h-4 text-background" />
-              </div>
+              <span className="text-lg font-bold">🆃🅂</span>
             </div>
 
             {/* Center: URL Input - Takes full available space on mobile */}
             <div className="flex-1 mx-2 md:max-w-md md:mx-4">
-              <div className="relative">
-                <Input
-                  type="url"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                  placeholder="https://example.com"
-                  className="pr-10 border-input bg-background text-foreground transition-colors duration-200"
-                />
-                <ExternalLink className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              </div>
+              <Input
+                type="url"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                placeholder="https://example.com"
+                className="border-input bg-background text-foreground transition-colors duration-200"
+              />
             </div>
 
             {/* Right: GitHub Stats + Theme Toggle - Compact on mobile */}
@@ -383,7 +374,7 @@ export default function ResponsiveDesignTester() {
 
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <h2 className="text-lg font-semibold text-foreground">Device Preview</h2>
             <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
               {selectedDevices.length} selected
@@ -395,7 +386,8 @@ export default function ResponsiveDesignTester() {
             <DrawerTrigger asChild>
               <Button variant="outline" className="bg-transparent">
                 <Layers className="w-4 h-4 mr-2" />
-                Select Devices
+                <span className="hidden sm:inline">Select Devices</span>
+                <span className="sm:hidden">Devices</span>
                 <span className="ml-2 text-xs bg-muted px-2 py-1 rounded">{selectedDevices.length}</span>
               </Button>
             </DrawerTrigger>
@@ -622,7 +614,7 @@ export default function ResponsiveDesignTester() {
                 <div className="text-center">
                   <Monitor className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-foreground mb-2">No devices selected</h3>
-                  <p className="text-muted-foreground">Click "Devices" in the header to select devices for preview</p>
+                  <p className="text-muted-foreground">Click "Select Devices" to choose devices for preview</p>
                 </div>
               </div>
             ) : focusedDevice && focusedDeviceObject ? (

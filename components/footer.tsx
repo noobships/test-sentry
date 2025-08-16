@@ -8,9 +8,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-foreground rounded-md flex items-center justify-center">
-                <span className="text-background text-xs font-bold">T</span>
-              </div>
+              <span className="text-lg">🅃🅂</span>
               <span className="font-semibold text-foreground">TestSentry</span>
             </div>
             <p className="text-sm text-muted-foreground">

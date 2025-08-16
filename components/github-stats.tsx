@@ -66,7 +66,7 @@ export function GitHubStats() {
         href="https://github.com/noobships/test-sentry/fork"
         target="_blank"
         rel="noopener noreferrer"
-        className="hidden sm:block transition-opacity hover:opacity-80"
+        className="transition-opacity hover:opacity-80"
       >
         <Badge variant="outline" className="bg-background hover:bg-accent transition-colors">
           <GitFork className="w-3 h-3 mr-1" />

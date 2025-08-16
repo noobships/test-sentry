@@ -278,15 +278,6 @@ export default function ResponsiveDesignTester() {
               />
             )}
           </div>
-
-          {/* Device Type Indicator */}
-          <div
-            className={`absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${
-              isFocused ? "bg-primary" : "bg-foreground"
-            }`}
-          >
-            <device.icon className={`w-3 h-3 ${isFocused ? "text-primary-foreground" : "text-background"}`} />
-          </div>
         </div>
 
         {/* Quick Actions for Focused Device */}
@@ -493,7 +484,7 @@ export default function ResponsiveDesignTester() {
                   </div>
 
                   {/* View Mode Toggle */}
-                  <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
+                  <div className="flex items-center gap-1 bg-muted rounded-lg p-1 ">
                     <Button
                       variant={viewMode === "grid" ? "default" : "ghost"}
                       size="sm"

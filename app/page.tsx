@@ -455,7 +455,7 @@ export default function ResponsiveDesignTester() {
       <div className="container mx-auto px-4 py-8">
         {!focusedDevice && selectedDevices.length > 0 && (
           <div className="mb-6">
-            <Card className="p-4 border-border bg-card transition-colors duration-200">
+            <Card className="border-border bg-card transition-colors duration-200">
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-4">
                   <Badge variant="secondary" className="bg-secondary text-secondary-foreground">

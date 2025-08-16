@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "ResponsiveView - Test Your Designs Across Devices",
   description:
     "A professional tool to preview websites and web applications across various screen sizes and devices with realistic device frames.",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
       </body>

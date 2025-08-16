@@ -35,6 +35,8 @@ import {
   Layers,
 } from "lucide-react"
 import { useTheme } from "next-themes"
+import { GitHubStats } from "@/components/github-stats"
+import { Footer } from "@/components/footer"
 
 const devices = [
   {
@@ -324,7 +326,7 @@ export default function ResponsiveDesignTester() {
   const focusedDeviceObject = focusedDevice ? devices.find((d) => d.id === focusedDevice) : null
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-200">
+    <div className="min-h-screen bg-background transition-colors duration-200 flex flex-col">
       <header className="border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-50 transition-colors duration-200">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between gap-2 md:gap-4">
@@ -359,93 +361,10 @@ export default function ResponsiveDesignTester() {
               </div>
             </div>
 
-            {/* Right: Actions - Compact on mobile */}
-            <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-              {/* Device Drawer Trigger - Compact on mobile */}
-              <Drawer>
-                <DrawerTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-9 px-2 md:px-3 bg-transparent">
-                    <Layers className="w-4 h-4 md:mr-2" />
-                    <span className="hidden sm:inline">Devices</span>
-                    <span className="ml-1">({selectedDevices.length})</span>
-                  </Button>
-                </DrawerTrigger>
-                <DrawerContent className="max-h-[80vh]">
-                  <DrawerHeader>
-                    <DrawerTitle>Select Devices</DrawerTitle>
-                    <DrawerDescription>Choose which devices to preview your website on</DrawerDescription>
-                  </DrawerHeader>
-
-                  <div className="px-4 pb-6 overflow-y-auto">
-                    <div className="flex gap-2 mb-6">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={selectAllDevices}
-                        className="flex-1 text-xs bg-transparent"
-                      >
-                        Select All
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={clearAllDevices}
-                        className="flex-1 text-xs bg-transparent"
-                      >
-                        Clear All
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={toggleOrientation}
-                        className="flex-1 text-xs bg-transparent"
-                      >
-                        <RotateCcw className="w-3 h-3 mr-1" />
-                        Rotate All
-                      </Button>
-                    </div>
-
-                    <div className="space-y-6">
-                      {["Mobile", "Tablet", "Desktop"].map((category) => (
-                        <div key={category}>
-                          <h3 className="text-sm font-medium text-muted-foreground mb-3">{category}</h3>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {devices
-                              .filter((device) => device.category === category)
-                              .map((device) => {
-                                const Icon = device.icon
-                                const isSelected = selectedDevices.includes(device.id)
-                                return (
-                                  <div
-                                    key={device.id}
-                                    className={`flex items-center space-x-3 p-3 rounded-lg border transition-all duration-200 cursor-pointer ${
-                                      isSelected
-                                        ? "border-primary bg-accent"
-                                        : "border-border hover:border-muted-foreground hover:bg-accent"
-                                    }`}
-                                    onClick={() => toggleDeviceSelection(device.id)}
-                                  >
-                                    <Checkbox
-                                      checked={isSelected}
-                                      onCheckedChange={() => toggleDeviceSelection(device.id)}
-                                    />
-                                    <Icon className="w-4 h-4 text-muted-foreground" />
-                                    <div className="flex-1">
-                                      <div className="font-medium text-sm text-foreground">{device.name}</div>
-                                      <div className="text-xs text-muted-foreground">
-                                        {device.width} × {device.height}
-                                      </div>
-                                    </div>
-                                  </div>
-                                )
-                              })}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </DrawerContent>
-              </Drawer>
+            {/* Right: GitHub Stats + Theme Toggle - Compact on mobile */}
+            <div className="flex items-center gap-1 md:gap-3 flex-shrink-0">
+              {/* GitHub stats component */}
+              <GitHubStats />
 
               {/* Theme Toggle */}
               <Button
@@ -462,7 +381,104 @@ export default function ResponsiveDesignTester() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-6">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-4">
+            <h2 className="text-lg font-semibold text-foreground">Device Preview</h2>
+            <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
+              {selectedDevices.length} selected
+            </Badge>
+          </div>
+
+          {/* Device Selection Drawer */}
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button variant="outline" className="bg-transparent">
+                <Layers className="w-4 h-4 mr-2" />
+                Select Devices
+                <span className="ml-2 text-xs bg-muted px-2 py-1 rounded">{selectedDevices.length}</span>
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent className="max-h-[80vh]">
+              <DrawerHeader>
+                <DrawerTitle>Select Devices</DrawerTitle>
+                <DrawerDescription>Choose which devices to preview your website on</DrawerDescription>
+              </DrawerHeader>
+
+              <div className="px-4 pb-6 overflow-y-auto">
+                <div className="flex gap-2 mb-6">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={selectAllDevices}
+                    className="flex-1 text-xs bg-transparent"
+                  >
+                    Select All
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={clearAllDevices}
+                    className="flex-1 text-xs bg-transparent"
+                  >
+                    Clear All
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={toggleOrientation}
+                    className="flex-1 text-xs bg-transparent"
+                  >
+                    <RotateCcw className="w-3 h-3 mr-1" />
+                    Rotate All
+                  </Button>
+                </div>
+
+                <div className="space-y-6">
+                  {["Mobile", "Tablet", "Desktop"].map((category) => (
+                    <div key={category}>
+                      <h3 className="text-sm font-medium text-muted-foreground mb-3">{category}</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {devices
+                          .filter((device) => device.category === category)
+                          .map((device) => {
+                            const Icon = device.icon
+                            const isSelected = selectedDevices.includes(device.id)
+                            return (
+                              <div
+                                key={device.id}
+                                className={`flex items-center space-x-3 p-3 rounded-lg border transition-all duration-200 cursor-pointer ${
+                                  isSelected
+                                    ? "border-primary bg-accent"
+                                    : "border-border hover:border-muted-foreground hover:bg-accent"
+                                }`}
+                                onClick={() => toggleDeviceSelection(device.id)}
+                              >
+                                <Checkbox
+                                  checked={isSelected}
+                                  onCheckedChange={() => toggleDeviceSelection(device.id)}
+                                />
+                                <Icon className="w-4 h-4 text-muted-foreground" />
+                                <div className="flex-1">
+                                  <div className="font-medium text-sm text-foreground">{device.name}</div>
+                                  <div className="text-xs text-muted-foreground">
+                                    {device.width} × {device.height}
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </DrawerContent>
+          </Drawer>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 pb-8 flex-1">
         {!focusedDevice && selectedDevices.length > 0 && (
           <div className="mb-6">
             <Card className="border-border bg-card transition-colors duration-200">
@@ -633,6 +649,8 @@ export default function ResponsiveDesignTester() {
           </div>
         </Card>
       </div>
+
+      <Footer />
     </div>
   )
 }

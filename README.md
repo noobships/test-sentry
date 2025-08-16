@@ -92,12 +92,12 @@ I'm building TestSentry because I'm sick of repetitive manual testing. Here's th
 
 ## Getting Started
 
-```bash
+\`\`\`bash
 git clone https://github.com/noobships/test-sentry.git
 cd test-sentry
 npm install
 npm run dev
-```
+\`\`\`
 
 Open `http://localhost:3000` and test any website.
 

@@ -317,9 +317,9 @@ export default function ResponsiveDesignTester() {
     <div className="min-h-screen bg-background transition-colors duration-200">
       <header className="border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-50 transition-colors duration-200">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between gap-4">
-            {/* Left: Brand */}
-            <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="flex items-center justify-between gap-2 md:gap-4">
+            {/* Left: Brand - Hidden on mobile */}
+            <div className="hidden md:flex items-center gap-3 flex-shrink-0">
               <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center transition-colors duration-200">
                 <Zap className="w-4 h-4 text-background" />
               </div>
@@ -328,8 +328,15 @@ export default function ResponsiveDesignTester() {
               </div>
             </div>
 
-            {/* Center: URL Input */}
-            <div className="flex-1 max-w-md mx-4">
+            {/* Mobile: Just the icon */}
+            <div className="md:hidden flex items-center flex-shrink-0">
+              <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center transition-colors duration-200">
+                <Zap className="w-4 h-4 text-background" />
+              </div>
+            </div>
+
+            {/* Center: URL Input - Takes full available space on mobile */}
+            <div className="flex-1 mx-2 md:max-w-md md:mx-4">
               <div className="relative">
                 <Input
                   type="url"
@@ -342,14 +349,15 @@ export default function ResponsiveDesignTester() {
               </div>
             </div>
 
-            {/* Right: Actions */}
-            <div className="flex items-center gap-2 flex-shrink-0">
-              {/* Device Drawer Trigger */}
+            {/* Right: Actions - Compact on mobile */}
+            <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+              {/* Device Drawer Trigger - Compact on mobile */}
               <Drawer>
                 <DrawerTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-9 px-3 bg-transparent">
-                    <Layers className="w-4 h-4 mr-2" />
-                    Devices ({selectedDevices.length})
+                  <Button variant="outline" size="sm" className="h-9 px-2 md:px-3 bg-transparent">
+                    <Layers className="w-4 h-4 md:mr-2" />
+                    <span className="hidden sm:inline">Devices</span>
+                    <span className="ml-1">({selectedDevices.length})</span>
                   </Button>
                 </DrawerTrigger>
                 <DrawerContent className="max-h-[80vh]">

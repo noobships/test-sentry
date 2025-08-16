@@ -1,10 +1,16 @@
 # 🛡️ TestSentry
 
+<div align="center">
+
+![TestSentry Logo](https://via.placeholder.com/200x80/000000/FFFFFF?text=TestSentry+Logo)
+
 **A simple, powerful cross-device testing tool for web developers**
 
 [![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live-testsentry.vercel.app-brightgreen)](https://testsentry.vercel.app)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
+</div>
 
 > Currently in early development. Built by a solo developer who got tired of manually resizing browser windows and running the same tests over and over.
 
@@ -17,6 +23,18 @@ Right now, it's a straightforward tool where you can:
 - Focus on individual devices for detailed inspection
 
 **[Try the live demo →](https://testsentry.vercel.app)**
+
+## Screenshots
+
+<div align="center">
+
+**Multi-Device Testing Interface**
+![TestSentry Multi-Device Interface](https://rss7lu1con.ufs.sh/f/WPpLHLZ4aXfpwsRwONhUlpDmEQ5FkrN08Rd2aZIKPzsbnJhc)
+
+**Focus Mode for Detailed Inspection**
+![TestSentry Focus Mode](https://rss7lu1con.ufs.sh/f/WPpLHLZ4aXfpFY1zy5wXTd3ORNapDouhAtUmifBHLIs7nl0Y)
+
+</div>
 
 ## The Vision
 

@@ -230,7 +230,7 @@ export default function ResponsiveDesignTester() {
             {currentWidth} × {currentHeight}
           </Badge>
           {!isFocused && !focusedDevice && (
-            <Badge variant="outline" className="text-xs text-blue-600 dark:text-blue-400">
+            <Badge variant="outline" className="text-xs text-primary">
               <Focus className="w-3 h-3 mr-1" />
               Click to focus
             </Badge>
@@ -240,10 +240,8 @@ export default function ResponsiveDesignTester() {
         {/* Device Preview */}
         <div className="relative">
           <div
-            className={`bg-white dark:bg-neutral-950 shadow-lg rounded-lg overflow-hidden border transition-all duration-300 ${
-              isFocused
-                ? "border-blue-500 dark:border-blue-400 shadow-2xl"
-                : "border-neutral-200 dark:border-neutral-800"
+            className={`bg-card shadow-lg rounded-lg overflow-hidden border transition-all duration-300 ${
+              isFocused ? "border-primary shadow-2xl" : "border-border"
             }`}
             style={{
               width: scaledWidth,
@@ -251,17 +249,17 @@ export default function ResponsiveDesignTester() {
             }}
           >
             {deviceError ? (
-              <div className="flex items-center justify-center h-full bg-neutral-50 dark:bg-neutral-900">
+              <div className="flex items-center justify-center h-full bg-muted">
                 <div className="text-center p-4">
-                  <AlertCircle className="w-8 h-8 text-neutral-400 mx-auto mb-2" />
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Unable to load website</p>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-1">Check URL or try again</p>
+                  <AlertCircle className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                  <p className="text-sm text-muted-foreground">Unable to load website</p>
+                  <p className="text-xs text-muted-foreground mt-1">Check URL or try again</p>
                 </div>
               </div>
             ) : (
               <iframe
                 src={url}
-                className="w-full h-full border-0 bg-white dark:bg-neutral-950 scrollable-no-bars"
+                className="w-full h-full border-0 bg-background scrollable-no-bars"
                 title={`${device.name} Preview`}
                 onError={() => setIframeError((prev) => ({ ...prev, [device.id]: true }))}
                 style={{
@@ -277,14 +275,10 @@ export default function ResponsiveDesignTester() {
           {/* Device Type Indicator */}
           <div
             className={`absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${
-              isFocused ? "bg-blue-500 dark:bg-blue-400" : "bg-neutral-900 dark:bg-neutral-100"
+              isFocused ? "bg-primary" : "bg-foreground"
             }`}
           >
-            <device.icon
-              className={`w-3 h-3 ${
-                isFocused ? "text-white dark:text-neutral-900" : "text-white dark:text-neutral-900"
-              }`}
-            />
+            <device.icon className={`w-3 h-3 ${isFocused ? "text-primary-foreground" : "text-background"}`} />
           </div>
         </div>
 
@@ -313,18 +307,18 @@ export default function ResponsiveDesignTester() {
   const focusedDeviceObject = focusedDevice ? devices.find((d) => d.id === focusedDevice) : null
 
   return (
-    <div className="min-h-screen bg-white dark:bg-neutral-950 transition-colors duration-200">
+    <div className="min-h-screen bg-background transition-colors duration-200">
       {/* Header */}
-      <header className="border-b border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-neutral-950/95 backdrop-blur-sm sticky top-0 z-50 transition-colors duration-200">
+      <header className="border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-50 transition-colors duration-200">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-neutral-900 dark:bg-neutral-100 rounded-lg flex items-center justify-center transition-colors duration-200">
-                <Zap className="w-4 h-4 text-white dark:text-neutral-900" />
+              <div className="w-8 h-8 bg-foreground rounded-lg flex items-center justify-center transition-colors duration-200">
+                <Zap className="w-4 h-4 text-background" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-neutral-900 dark:text-neutral-100">ResponsiveView</h1>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                <h1 className="text-xl font-bold text-foreground">ResponsiveView</h1>
+                <p className="text-sm text-muted-foreground">
                   {focusedDevice ? `Focused on ${focusedDeviceObject?.name}` : "Test your designs across devices"}
                 </p>
               </div>
@@ -332,7 +326,7 @@ export default function ResponsiveDesignTester() {
 
             <div className="flex items-center gap-2">
               {/* Zoom Controls */}
-              <div className="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
+              <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -358,7 +352,7 @@ export default function ResponsiveDesignTester() {
 
               {/* View Mode Toggle - Hidden when focused */}
               {!focusedDevice && (
-                <div className="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
+                <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
                   <Button
                     variant={viewMode === "grid" ? "default" : "ghost"}
                     size="sm"
@@ -392,7 +386,7 @@ export default function ResponsiveDesignTester() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200"
+                className="rounded-full hover:bg-accent transition-colors duration-200"
               >
                 <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -408,8 +402,8 @@ export default function ResponsiveDesignTester() {
           {!focusedDevice && (
             <div className="lg:col-span-1 space-y-6">
               {/* URL Input */}
-              <Card className="p-6 border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 transition-colors duration-200">
-                <h2 className="text-lg font-semibold mb-4 text-neutral-900 dark:text-neutral-100">Website URL</h2>
+              <Card className="p-6 border-border bg-card transition-colors duration-200">
+                <h2 className="text-lg font-semibold mb-4 text-card-foreground">Website URL</h2>
                 <form onSubmit={handleUrlSubmit} className="space-y-4">
                   <div className="relative">
                     <Input
@@ -417,15 +411,11 @@ export default function ResponsiveDesignTester() {
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
                       placeholder="https://example.com"
-                      className="pr-10 border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors duration-200"
+                      className="pr-10 border-input bg-background text-foreground transition-colors duration-200"
                     />
-                    <ExternalLink className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neutral-400" />
+                    <ExternalLink className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   </div>
-                  <Button
-                    type="submit"
-                    className="w-full bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:hover:bg-neutral-200 dark:text-neutral-900 text-white transition-colors duration-200"
-                    disabled={isLoading}
-                  >
+                  <Button type="submit" className="w-full transition-colors duration-200" disabled={isLoading}>
                     {isLoading ? (
                       <>
                         <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
@@ -439,14 +429,14 @@ export default function ResponsiveDesignTester() {
               </Card>
 
               {/* Device Selection */}
-              <Card className="p-6 border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 transition-colors duration-200">
+              <Card className="p-6 border-border bg-card transition-colors duration-200">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Devices</h2>
+                  <h2 className="text-lg font-semibold text-card-foreground">Devices</h2>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={toggleOrientation}
-                    className="text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200"
+                    className="text-muted-foreground hover:bg-accent transition-colors duration-200"
                   >
                     <RotateCcw className="w-4 h-4 mr-2" />
                     Rotate All
@@ -475,7 +465,7 @@ export default function ResponsiveDesignTester() {
                 <div className="space-y-4">
                   {["Mobile", "Tablet", "Desktop"].map((category) => (
                     <div key={category}>
-                      <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">{category}</h3>
+                      <h3 className="text-sm font-medium text-muted-foreground mb-2">{category}</h3>
                       <div className="space-y-2">
                         {devices
                           .filter((device) => device.category === category)
@@ -487,20 +477,18 @@ export default function ResponsiveDesignTester() {
                                 key={device.id}
                                 className={`flex items-center space-x-3 p-3 rounded-lg border transition-all duration-200 ${
                                   isSelected
-                                    ? "border-neutral-900 dark:border-neutral-100 bg-neutral-50 dark:bg-neutral-900"
-                                    : "border-neutral-200 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+                                    ? "border-primary bg-accent"
+                                    : "border-border hover:border-muted-foreground hover:bg-accent"
                                 }`}
                               >
                                 <Checkbox
                                   checked={isSelected}
                                   onCheckedChange={() => toggleDeviceSelection(device.id)}
                                 />
-                                <Icon className="w-4 h-4 text-neutral-600 dark:text-neutral-400" />
+                                <Icon className="w-4 h-4 text-muted-foreground" />
                                 <div className="flex-1">
-                                  <div className="font-medium text-sm text-neutral-900 dark:text-neutral-100">
-                                    {device.name}
-                                  </div>
-                                  <div className="text-xs text-neutral-500 dark:text-neutral-500">
+                                  <div className="font-medium text-sm text-foreground">{device.name}</div>
+                                  <div className="text-xs text-muted-foreground">
                                     {device.width} × {device.height}
                                   </div>
                                 </div>
@@ -514,38 +502,31 @@ export default function ResponsiveDesignTester() {
               </Card>
 
               {/* Controls Info */}
-              <Card className="p-6 border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 transition-colors duration-200">
-                <h2 className="text-lg font-semibold mb-4 text-neutral-900 dark:text-neutral-100">Controls</h2>
+              <Card className="p-6 border-border bg-card transition-colors duration-200">
+                <h2 className="text-lg font-semibold mb-4 text-card-foreground">Controls</h2>
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <Badge
-                      variant="secondary"
-                      className="bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100"
-                    >
+                    <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
                       {selectedDevices.length} device{selectedDevices.length !== 1 ? "s" : ""}
                     </Badge>
                   </div>
-                  <Separator className="bg-neutral-200 dark:bg-neutral-800" />
+                  <Separator className="bg-border" />
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-neutral-600 dark:text-neutral-400">Zoom:</span>
-                      <span className="text-neutral-900 dark:text-neutral-100 font-mono">
-                        {Math.round(zoomLevel * 100)}%
-                      </span>
+                      <span className="text-muted-foreground">Zoom:</span>
+                      <span className="text-foreground font-mono">{Math.round(zoomLevel * 100)}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-neutral-600 dark:text-neutral-400">View Mode:</span>
-                      <span className="text-neutral-900 dark:text-neutral-100 capitalize">{viewMode}</span>
+                      <span className="text-muted-foreground">View Mode:</span>
+                      <span className="text-foreground capitalize">{viewMode}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-neutral-600 dark:text-neutral-400">Orientation:</span>
-                      <span className="text-neutral-900 dark:text-neutral-100">
-                        {isLandscape ? "Landscape" : "Portrait"}
-                      </span>
+                      <span className="text-muted-foreground">Orientation:</span>
+                      <span className="text-foreground">{isLandscape ? "Landscape" : "Portrait"}</span>
                     </div>
                   </div>
-                  <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-                    <p className="text-xs text-blue-700 dark:text-blue-300">
+                  <div className="mt-4 p-3 bg-primary/10 rounded-lg">
+                    <p className="text-xs text-primary">
                       💡 <strong>Tip:</strong> Click on any device preview to focus and zoom in for detailed inspection.
                     </p>
                   </div>
@@ -556,16 +537,14 @@ export default function ResponsiveDesignTester() {
 
           {/* Preview Area */}
           <div className={focusedDevice ? "col-span-1" : "lg:col-span-3"}>
-            <Card className="border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 transition-colors duration-200 overflow-hidden">
+            <Card className="border-border bg-muted/50 transition-colors duration-200 overflow-hidden">
               <div className="min-h-[700px] p-8">
                 {selectedDevices.length === 0 ? (
                   <div className="flex items-center justify-center h-full">
                     <div className="text-center">
-                      <Monitor className="w-16 h-16 text-neutral-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 mb-2">
-                        No devices selected
-                      </h3>
-                      <p className="text-neutral-600 dark:text-neutral-400">
+                      <Monitor className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                      <h3 className="text-lg font-semibold text-foreground mb-2">No devices selected</h3>
+                      <p className="text-muted-foreground">
                         Select one or more devices from the sidebar to start previewing
                       </p>
                     </div>

@@ -1,12 +1,48 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
-  "private": true,
+  "name": "testsentry",
+  "version": "1.0.0",
+  "private": false,
+  "description": "The next-generation cross-device testing platform for web developers",
+  "keywords": [
+    "testing",
+    "responsive-design",
+    "cross-device",
+    "web-development",
+    "automation",
+    "visual-regression",
+    "developer-tools",
+    "nextjs",
+    "typescript",
+    "tailwindcss"
+  ],
+  "homepage": "https://testsentry.vercel.app",
+  "bugs": {
+    "url": "https://github.com/yourusername/testsentry/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/testsentry.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "TestSentry Team",
+    "email": "hello@testsentry.dev",
+    "url": "https://testsentry.vercel.app"
+  },
   "scripts": {
+    "analyze": "cross-env ANALYZE=true next build",
     "build": "next build",
     "dev": "next dev",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "postinstall": "husky install",
     "lint": "next lint",
-    "start": "next start"
+    "lint:fix": "next lint --fix",
+    "start": "next start",
+    "test": "jest",
+    "test:e2e": "playwright test",
+    "test:watch": "jest --watch",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -69,5 +105,9 @@
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }

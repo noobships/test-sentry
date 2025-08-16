@@ -35,7 +35,6 @@
     "dev": "next dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "postinstall": "husky install",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "start": "next start",

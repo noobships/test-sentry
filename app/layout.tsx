@@ -7,9 +7,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "ResponsiveView - Test Your Designs Across Devices",
+  title: "TestSentry - Test Your Designs Across Devices",
   description:
-    "A professional tool to preview websites and web applications across various screen sizes and devices with realistic device frames.",
+    "A dev tool to preview websites and web applications across various screen sizes and devices.",
   generator: "v0.dev",
 }
 

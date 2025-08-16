@@ -271,6 +271,7 @@ export default function ResponsiveDesignTester() {
             style={{
               width: scaledWidth,
               height: scaledHeight,
+              overflow: "hidden",
             }}
           >
             {deviceError ? (

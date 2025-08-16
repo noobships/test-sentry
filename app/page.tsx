@@ -104,7 +104,7 @@ const devices = [
 
 export default function ResponsiveDesignTester() {
   const [selectedDevices, setSelectedDevices] = useState<string[]>([devices[0].id])
-  const [url, setUrl] = useState("https://vercel.com")
+  const [url, setUrl] = useState("https://testsentry.vercel.app")
   const [isLandscape, setIsLandscape] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [iframeError, setIframeError] = useState<Record<string, boolean>>({})

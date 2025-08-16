@@ -113,7 +113,16 @@ export default function ResponsiveDesignTester() {
   const [zoomLevel, setZoomLevel] = useState(1)
   const [focusedDevice, setFocusedDevice] = useState<string | null>(null)
   const [focusZoom, setFocusZoom] = useState(1.5)
+  const [customZoomInput, setCustomZoomInput] = useState("")
   const { theme, setTheme } = useTheme()
+
+  const handleDeviceFocus = (deviceId: string) => {
+    setFocusedDevice(deviceId)
+  }
+
+  const exitFocus = () => {
+    setFocusedDevice(null)
+  }
 
   useEffect(() => {
     setMounted(true)
@@ -173,13 +182,22 @@ export default function ResponsiveDesignTester() {
     }
   }
 
-  const handleDeviceFocus = (deviceId: string) => {
-    setFocusedDevice(deviceId)
-    setFocusZoom(1.5) // Start with a nice focused zoom level
+  const handleCustomZoom = (value: string) => {
+    setCustomZoomInput(value)
+    const numValue = Number.parseFloat(value)
+    if (!isNaN(numValue) && numValue > 0 && numValue <= 500) {
+      const zoomValue = numValue / 100
+      if (focusedDevice) {
+        setFocusZoom(Math.min(Math.max(zoomValue, 0.1), 5))
+      } else {
+        setZoomLevel(Math.min(Math.max(zoomValue, 0.1), 5))
+      }
+    }
   }
 
-  const exitFocus = () => {
-    setFocusedDevice(null)
+  const syncZoomInput = () => {
+    const currentZoom = focusedDevice ? focusZoom : zoomLevel
+    setCustomZoomInput(Math.round(currentZoom * 100).toString())
   }
 
   const getScaledDimensions = (device: (typeof devices)[0], isFocused = false) => {
@@ -469,9 +487,18 @@ export default function ResponsiveDesignTester() {
                     >
                       <ZoomOut className="w-4 h-4" />
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={resetZoom} className="h-8 px-3 text-xs font-mono">
-                      {Math.round((focusedDevice ? focusZoom : zoomLevel) * 100)}%
-                    </Button>
+                    <Input
+                      type="number"
+                      min="10"
+                      max="500"
+                      value={customZoomInput || Math.round((focusedDevice ? focusZoom : zoomLevel) * 100)}
+                      onChange={(e) => handleCustomZoom(e.target.value)}
+                      onFocus={syncZoomInput}
+                      onBlur={() => setCustomZoomInput("")}
+                      className="h-8 w-16 px-2 text-xs font-mono text-center border-0 bg-transparent"
+                      placeholder={Math.round((focusedDevice ? focusZoom : zoomLevel) * 100).toString()}
+                    />
+                    <span className="text-xs text-muted-foreground">%</span>
                     <Button
                       variant="ghost"
                       size="sm"
@@ -538,9 +565,18 @@ export default function ResponsiveDesignTester() {
                     >
                       <ZoomOut className="w-4 h-4" />
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={resetZoom} className="h-8 px-3 text-xs font-mono">
-                      {Math.round(focusZoom * 100)}%
-                    </Button>
+                    <Input
+                      type="number"
+                      min="10"
+                      max="500"
+                      value={customZoomInput || Math.round(focusZoom * 100)}
+                      onChange={(e) => handleCustomZoom(e.target.value)}
+                      onFocus={syncZoomInput}
+                      onBlur={() => setCustomZoomInput("")}
+                      className="h-8 w-16 px-2 text-xs font-mono text-center border-0 bg-transparent"
+                      placeholder={Math.round(focusZoom * 100).toString()}
+                    />
+                    <span className="text-xs text-muted-foreground">%</span>
                     <Button variant="ghost" size="sm" onClick={zoomIn} disabled={focusZoom >= 3} className="h-8 px-2">
                       <ZoomIn className="w-4 h-4" />
                     </Button>

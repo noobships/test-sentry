@@ -26,12 +26,16 @@ Right now, it's a straightforward tool where you can:
 
 ## Screenshots
 
+**Multi-Device Testing Interface**
 <div align="center">
 
-**Multi-Device Testing Interface**
 ![TestSentry Multi-Device Interface](https://rss7lu1con.ufs.sh/f/WPpLHLZ4aXfpwsRwONhUlpDmEQ5FkrN08Rd2aZIKPzsbnJhc)
 
+</div>
+
 **Focus Mode for Detailed Inspection**
+<div align="center">
+
 ![TestSentry Focus Mode](https://rss7lu1con.ufs.sh/f/WPpLHLZ4aXfpFY1zy5wXTd3ORNapDouhAtUmifBHLIs7nl0Y)
 
 </div>
@@ -89,8 +93,8 @@ I'm building TestSentry because I'm sick of repetitive manual testing. Here's th
 ## Getting Started
 
 ```bash
-git clone https://github.com/yourusername/testsentry.git
-cd testsentry
+git clone https://github.com/noobships/test-sentry.git
+cd test-sentry
 npm install
 npm run dev
 ```
@@ -118,10 +122,10 @@ All skill levels welcome.
 
 ## Contact
 
-Built by [@creativecoder](https://github.com/creativecoder) 
+Built by [@noobships](https://github.com/noobships) 
 
 - Email: creativecoder.crco@gmail.com
-- Have ideas or feedback? [Open an issue](https://github.com/yourusername/testsentry/issues)
+- Have ideas or feedback? [Open an issue](https://github.com/noobships/test-sentry/issues)
 
 ## License
 

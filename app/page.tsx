@@ -242,7 +242,7 @@ export default function ResponsiveDesignTester() {
     return (
       <div
         className={`flex flex-col items-center space-y-3 transition-all duration-300 ${
-          !isFocused && !focusedDevice ? "cursor-pointer hover:scale-105 hover:shadow-lg" : ""
+          !isFocused && !focusedDevice ? "cursor-pointer" : ""
         }`}
         onClick={() => !isFocused && !focusedDevice && handleDeviceFocus(device.id)}
       >
@@ -265,8 +265,8 @@ export default function ResponsiveDesignTester() {
         {/* Device Preview */}
         <div className="relative">
           <div
-            className={`bg-card shadow-lg rounded-lg overflow-hidden transition-all duration-300 ${
-              isFocused ? "shadow-2xl" : "border border-border"
+            className={`bg-card rounded-lg overflow-hidden transition-all duration-300 ${
+              isFocused ? "shadow-2xl" : "shadow-lg border border-border"
             }`}
             style={{
               width: scaledWidth,

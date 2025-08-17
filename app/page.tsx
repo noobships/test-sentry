@@ -373,10 +373,10 @@ export default function ResponsiveDesignTester() {
       </header>
 
       <div className="container mx-auto px-4 pt-6">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
             <h2 className="text-lg font-semibold text-foreground">Device Preview</h2>
-            <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
+            <Badge variant="secondary" className="bg-secondary text-secondary-foreground w-fit">
               {selectedDevices.length} selected
             </Badge>
           </div>
@@ -384,7 +384,7 @@ export default function ResponsiveDesignTester() {
           {/* Device Selection Drawer */}
           <Drawer>
             <DrawerTrigger asChild>
-              <Button variant="outline" className="bg-transparent">
+              <Button variant="outline" className="bg-transparent w-full sm:w-auto">
                 <Layers className="w-4 h-4 mr-2" />
                 <span className="hidden sm:inline">Select Devices</span>
                 <span className="sm:hidden">Devices</span>
@@ -476,7 +476,6 @@ export default function ResponsiveDesignTester() {
             <Card className="border-border bg-card transition-colors duration-200">
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-4">
-                  
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <span>Orientation: {isLandscape ? "Landscape" : "Portrait"}</span>
                   </div>

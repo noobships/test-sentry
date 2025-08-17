@@ -108,6 +108,7 @@ export default function ResponsiveDesignTester() {
   const [isLandscape, setIsLandscape] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [iframeError, setIframeError] = useState<Record<string, boolean>>({})
+  const [iframeBlocked, setIframeBlocked] = useState<Record<string, boolean>>({})
   const [mounted, setMounted] = useState(false)
   const [viewMode, setViewMode] = useState<"grid" | "single">("grid")
   const [zoomLevel, setZoomLevel] = useState(1)
@@ -132,7 +133,7 @@ export default function ResponsiveDesignTester() {
     e.preventDefault()
     setIsLoading(true)
     setIframeError({})
-    // Simulate loading
+    setIframeBlocked({})
     setTimeout(() => setIsLoading(false), 1000)
   }
 
@@ -208,7 +209,6 @@ export default function ResponsiveDesignTester() {
     let appliedZoom = zoomLevel
 
     if (isFocused) {
-      // For focused device, use larger base scale and focus zoom
       if (device.type === "desktop") {
         baseScale = 0.6
       } else if (device.type === "tablet") {
@@ -218,7 +218,6 @@ export default function ResponsiveDesignTester() {
       }
       appliedZoom = focusZoom
     } else {
-      // For grid view, use smaller base scales
       if (device.type === "desktop") {
         baseScale = viewMode === "single" ? 0.4 : 0.2
       } else if (device.type === "tablet") {
@@ -238,6 +237,7 @@ export default function ResponsiveDesignTester() {
   const renderDeviceFrame = (device: (typeof devices)[0], isFocused = false) => {
     const { scaledWidth, scaledHeight, scale, currentWidth, currentHeight } = getScaledDimensions(device, isFocused)
     const deviceError = iframeError[device.id]
+    const deviceBlocked = iframeBlocked[device.id]
 
     return (
       <div
@@ -246,7 +246,6 @@ export default function ResponsiveDesignTester() {
         }`}
         onClick={() => !isFocused && !focusedDevice && handleDeviceFocus(device.id)}
       >
-        {/* Device Info Header */}
         <div className="flex items-center space-x-2">
           <Badge variant="outline" className="text-xs font-medium">
             {device.name}
@@ -262,7 +261,6 @@ export default function ResponsiveDesignTester() {
           )}
         </div>
 
-        {/* Device Preview */}
         <div className="relative">
           <div
             className={`bg-card rounded-lg overflow-hidden transition-all duration-300 ${
@@ -274,12 +272,31 @@ export default function ResponsiveDesignTester() {
               overflow: "hidden",
             }}
           >
-            {deviceError ? (
+            {deviceError || deviceBlocked ? (
               <div className="flex items-center justify-center h-full bg-muted">
-                <div className="text-center p-4">
+                <div className="text-center p-4 max-w-xs">
                   <AlertCircle className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">Unable to load website</p>
-                  <p className="text-xs text-muted-foreground mt-1">Check URL or try again</p>
+                  {deviceBlocked ? (
+                    <>
+                      <p className="text-sm font-medium text-foreground mb-1">Website blocks iframe embedding</p>
+                      <p className="text-xs text-muted-foreground mb-3">
+                        This website uses X-Frame-Options or CSP headers to prevent embedding in iframes for security.
+                      </p>
+                      <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-primary hover:underline"
+                      >
+                        Learn more about iframe restrictions →
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-sm text-muted-foreground">Unable to load website</p>
+                      <p className="text-xs text-muted-foreground mt-1">Check URL or try again</p>
+                    </>
+                  )}
                 </div>
               </div>
             ) : (
@@ -287,7 +304,9 @@ export default function ResponsiveDesignTester() {
                 src={url}
                 className="w-full h-full border-0 bg-background scrollable-no-bars"
                 title={`${device.name} Preview`}
-                onError={() => setIframeError((prev) => ({ ...prev, [device.id]: true }))}
+                onError={() => handleIframeError(device.id)}
+                onLoad={(e) => handleIframeLoad(device.id, e.currentTarget)}
+                referrerPolicy="no-referrer-when-downgrade"
                 style={{
                   transform: `scale(${scale})`,
                   transformOrigin: "top left",
@@ -299,21 +318,88 @@ export default function ResponsiveDesignTester() {
           </div>
         </div>
 
-        {/* Quick Actions for Focused Device */}
         {isFocused && (
-          <div className="flex items-center space-x-2 mt-4">
-            <Button variant="outline" size="sm" onClick={toggleOrientation} className="h-8 px-3 text-xs bg-transparent">
-              <RotateCw className="w-3 h-3 mr-1" />
-              Rotate
+          <div className="flex items-center justify-center gap-1 sm:gap-2 mt-4 w-full max-w-xs sm:max-w-none">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleOrientation}
+              className="h-8 px-2 sm:px-3 text-xs bg-transparent flex-shrink-0"
+            >
+              <RotateCw className="w-3 h-3 sm:mr-1" />
+              <span className="hidden sm:inline">Rotate</span>
             </Button>
-            <Button variant="outline" size="sm" onClick={exitFocus} className="h-8 px-3 text-xs bg-transparent">
-              <X className="w-3 h-3 mr-1" />
-              Exit Focus
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={exitFocus}
+              className="h-8 px-2 sm:px-3 text-xs bg-transparent flex-shrink-0"
+            >
+              <X className="w-3 h-3 sm:mr-1" />
+              <span className="hidden sm:inline">Exit</span>
             </Button>
           </div>
         )}
       </div>
     )
+  }
+
+  const handleIframeError = (deviceId: string) => {
+    setIframeError((prev) => ({ ...prev, [deviceId]: true }))
+  }
+
+  const handleIframeLoad = (deviceId: string, iframe: HTMLIFrameElement) => {
+    setIframeError((prev) => ({ ...prev, [deviceId]: false }))
+    setIframeBlocked((prev) => ({ ...prev, [deviceId]: false }))
+
+    setTimeout(() => {
+      try {
+        // Method 1: Check if iframe navigated to about:blank (some blocking scenarios)
+        if (iframe.src === "about:blank" || iframe.src === "") {
+          setIframeBlocked((prev) => ({ ...prev, [deviceId]: true }))
+          return
+        }
+
+        // Method 2: Try to access contentDocument - this will be null for blocked iframes
+        // but will throw SecurityError for cross-origin (which is normal)
+        const doc = iframe.contentDocument
+        if (doc === null && iframe.contentWindow === null) {
+          // Both contentDocument and contentWindow are null - likely blocked
+          setIframeBlocked((prev) => ({ ...prev, [deviceId]: true }))
+          return
+        }
+
+        // Method 3: Check if contentWindow exists but document access is completely blocked
+        if (iframe.contentWindow) {
+          try {
+            // Try to access location - this will throw for cross-origin but be accessible for same-origin
+            const location = iframe.contentWindow.location
+            // If we can access location and it's about:blank, it's likely blocked
+            if (location && location.href === "about:blank") {
+              setIframeBlocked((prev) => ({ ...prev, [deviceId]: true }))
+              return
+            }
+          } catch (e) {
+            // Cross-origin access error is normal - not blocked
+            console.log(`[v0] Cross-origin access for ${deviceId} - normal behavior`)
+          }
+        }
+
+        // Method 4: Additional check after longer timeout for slow-loading blocked content
+        setTimeout(() => {
+          try {
+            if (iframe.contentDocument === null && iframe.contentWindow === null) {
+              setIframeBlocked((prev) => ({ ...prev, [deviceId]: true }))
+            }
+          } catch (e) {
+            // Ignore errors - likely cross-origin which is normal
+          }
+        }, 2000)
+      } catch (error) {
+        // If we get here, it's likely a cross-origin restriction, not blocking
+        console.log(`[v0] Cross-origin access restriction for ${deviceId} - this is normal`)
+      }
+    }, 1000)
   }
 
   if (!mounted) {
@@ -328,7 +414,6 @@ export default function ResponsiveDesignTester() {
       <header className="border-b border-border bg-background/95 backdrop-blur-sm sticky top-0 z-50 transition-colors duration-200">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between gap-2 md:gap-4">
-            {/* Left: Brand - Hidden on mobile */}
             <div className="hidden md:flex items-center gap-3 flex-shrink-0">
               <span className="text-2xl">🆃🅂</span>
               <div>
@@ -336,12 +421,10 @@ export default function ResponsiveDesignTester() {
               </div>
             </div>
 
-            {/* Mobile: Just the icon */}
             <div className="md:hidden flex items-center flex-shrink-0">
               <span className="text-lg font-bold">🆃🅂</span>
             </div>
 
-            {/* Center: URL Input - Takes full available space on mobile */}
             <div className="flex-1 mx-2 md:max-w-md md:mx-4">
               <Input
                 type="url"
@@ -352,12 +435,8 @@ export default function ResponsiveDesignTester() {
               />
             </div>
 
-            {/* Right: GitHub Stats + Theme Toggle - Compact on mobile */}
             <div className="flex items-center gap-1 md:gap-3 flex-shrink-0">
-              {/* GitHub stats component */}
               <GitHubStats />
-
-              {/* Theme Toggle */}
               <Button
                 variant="ghost"
                 size="icon"
@@ -381,7 +460,6 @@ export default function ResponsiveDesignTester() {
             </Badge>
           </div>
 
-          {/* Device Selection Drawer */}
           <Drawer>
             <DrawerTrigger asChild>
               <Button variant="outline" className="bg-transparent w-full sm:w-auto">
@@ -421,7 +499,7 @@ export default function ResponsiveDesignTester() {
                     onClick={toggleOrientation}
                     className="flex-1 text-xs bg-transparent"
                   >
-                    <RotateCcw className="w-3 h-3 mr-1" />
+                    <RotateCcw className="w-4 h-4 mr-1" />
                     Rotate All
                   </Button>
                 </div>
@@ -482,7 +560,6 @@ export default function ResponsiveDesignTester() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                  {/* Zoom Controls */}
                   <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
                     <Button
                       variant="ghost"
@@ -516,8 +593,7 @@ export default function ResponsiveDesignTester() {
                     </Button>
                   </div>
 
-                  {/* View Mode Toggle */}
-                  <div className="flex items-center gap-1 bg-muted rounded-lg p-1 ">
+                  <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
                     <Button
                       variant={viewMode === "grid" ? "default" : "ghost"}
                       size="sm"
@@ -545,65 +621,83 @@ export default function ResponsiveDesignTester() {
 
         {focusedDevice && focusedDeviceObject && (
           <div className="mb-6">
-            <Card className="p-4 border-border bg-card transition-colors duration-200">
-              <div className="flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-4">
-                  <Badge variant="default" className="bg-primary text-primary-foreground">
-                    Focused: {focusedDeviceObject.name}
-                  </Badge>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>
-                      {isLandscape ? focusedDeviceObject.height : focusedDeviceObject.width} ×{" "}
-                      {isLandscape ? focusedDeviceObject.width : focusedDeviceObject.height}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  {/* Zoom Controls for Focused */}
-                  <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={zoomOut}
-                      disabled={focusZoom <= 0.5}
-                      className="h-8 px-2"
-                    >
-                      <ZoomOut className="w-4 h-4" />
-                    </Button>
-                    <Input
-                      type="number"
-                      min="10"
-                      max="500"
-                      value={customZoomInput || Math.round(focusZoom * 100)}
-                      onChange={(e) => handleCustomZoom(e.target.value)}
-                      onFocus={syncZoomInput}
-                      onBlur={() => setCustomZoomInput("")}
-                      className="h-8 w-16 px-2 text-xs font-mono text-center border-0 bg-transparent"
-                      placeholder={Math.round(focusZoom * 100).toString()}
-                    />
-                    <span className="text-xs text-muted-foreground">%</span>
-                    <Button variant="ghost" size="sm" onClick={zoomIn} disabled={focusZoom >= 3} className="h-8 px-2">
-                      <ZoomIn className="w-4 h-4" />
-                    </Button>
+            <Card className="border-border bg-card transition-colors duration-200">
+              <div className="p-2 sm:p-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <Badge variant="default" className="bg-primary text-primary-foreground w-fit">
+                      Focused: {focusedDeviceObject.name}
+                    </Badge>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <span>
+                        {isLandscape ? focusedDeviceObject.height : focusedDeviceObject.width} ×{" "}
+                        {isLandscape ? focusedDeviceObject.width : focusedDeviceObject.height}
+                      </span>
+                    </div>
                   </div>
 
-                  <Button variant="outline" size="sm" onClick={toggleOrientation} className="h-8 px-3 bg-transparent">
-                    <RotateCw className="w-3 h-3 mr-1" />
-                    Rotate
-                  </Button>
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                    <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={zoomOut}
+                        disabled={focusZoom <= 0.5}
+                        className="h-8 px-2 flex-shrink-0"
+                      >
+                        <ZoomOut className="w-4 h-4" />
+                      </Button>
+                      <Input
+                        type="number"
+                        min="10"
+                        max="500"
+                        value={customZoomInput || Math.round(focusZoom * 100)}
+                        onChange={(e) => handleCustomZoom(e.target.value)}
+                        onFocus={syncZoomInput}
+                        onBlur={() => setCustomZoomInput("")}
+                        className="h-8 w-14 sm:w-16 px-1 sm:px-2 text-xs font-mono text-center border-0 bg-transparent"
+                        placeholder={Math.round(focusZoom * 100).toString()}
+                      />
+                      <span className="text-xs text-muted-foreground">%</span>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={zoomIn}
+                        disabled={focusZoom >= 3}
+                        className="h-8 px-2 flex-shrink-0"
+                      >
+                        <ZoomIn className="w-4 h-4" />
+                      </Button>
+                    </div>
 
-                  <Button variant="outline" size="sm" onClick={exitFocus} className="h-8 px-3 bg-transparent">
-                    <X className="w-3 h-3 mr-1" />
-                    Exit Focus
-                  </Button>
+                    <div className="flex gap-1 sm:gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={toggleOrientation}
+                        className="h-8 px-2 sm:px-3 bg-transparent flex-1 sm:flex-initial"
+                      >
+                        <RotateCw className="w-3 h-3 sm:mr-1" />
+                        <span className="hidden sm:inline">Rotate</span>
+                      </Button>
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={exitFocus}
+                        className="h-8 px-2 sm:px-3 bg-transparent flex-1 sm:flex-initial"
+                      >
+                        <X className="w-3 h-3 sm:mr-1" />
+                        <span className="hidden sm:inline">Exit</span>
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </Card>
           </div>
         )}
 
-        {/* Preview Area */}
         <Card className="border-border bg-muted/50 transition-colors duration-200 overflow-hidden">
           <div className="min-h-[700px] p-8">
             {selectedDevices.length === 0 ? (
@@ -615,12 +709,10 @@ export default function ResponsiveDesignTester() {
                 </div>
               </div>
             ) : focusedDevice && focusedDeviceObject ? (
-              // Focused Device View
               <div className="flex items-center justify-center h-full">
                 {renderDeviceFrame(focusedDeviceObject, true)}
               </div>
             ) : (
-              // Grid View
               <div
                 className={`${
                   viewMode === "grid"

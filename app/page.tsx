@@ -372,7 +372,7 @@ export default function ResponsiveDesignTester() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 pt-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2 md:gap-4">
             <h2 className="text-lg font-semibold text-foreground">Device Preview</h2>
@@ -476,9 +476,7 @@ export default function ResponsiveDesignTester() {
             <Card className="border-border bg-card transition-colors duration-200">
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-4">
-                  <Badge variant="secondary" className="bg-secondary text-secondary-foreground">
-                    {selectedDevices.length} device{selectedDevices.length !== 1 ? "s" : ""} selected
-                  </Badge>
+                  
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <span>Orientation: {isLandscape ? "Landscape" : "Portrait"}</span>
                   </div>

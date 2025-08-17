@@ -10,7 +10,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <span className="text-lg">🅃🅂</span>
+              <span className="text-lg">⛡</span>
               <span className="font-semibold text-foreground">TestSentry</span>
             </div>
             <p className="text-sm text-muted-foreground">

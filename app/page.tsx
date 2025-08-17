@@ -461,14 +461,14 @@ export default function ResponsiveDesignTester() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between gap-2 md:gap-4">
             <div className="hidden md:flex items-center gap-3 flex-shrink-0">
-              <span className="text-2xl">🆃🅂</span>
+              <span className="text-2xl">⛡</span>
               <div>
                 <h1 className="text-xl font-bold text-foreground">TestSentry</h1>
               </div>
             </div>
 
             <div className="md:hidden flex items-center flex-shrink-0">
-              <span className="text-lg font-bold">🆃🅂</span>
+              <span className="text-lg font-bold">⛡</span>
             </div>
 
             <div className="flex-1 mx-2 md:max-w-md md:mx-4">

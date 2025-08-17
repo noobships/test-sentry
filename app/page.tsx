@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
@@ -116,6 +116,7 @@ export default function ResponsiveDesignTester() {
   const [focusZoom, setFocusZoom] = useState(1.5)
   const [customZoomInput, setCustomZoomInput] = useState("")
   const { theme, setTheme } = useTheme()
+  const detectionTimeouts = useRef<Record<string, NodeJS.Timeout>>({})
 
   const handleDeviceFocus = (deviceId: string) => {
     setFocusedDevice(deviceId)
@@ -134,6 +135,10 @@ export default function ResponsiveDesignTester() {
     setIsLoading(true)
     setIframeError({})
     setIframeBlocked({})
+
+    Object.values(detectionTimeouts.current).forEach((timeout) => clearTimeout(timeout))
+    detectionTimeouts.current = {}
+
     setTimeout(() => setIsLoading(false), 1000)
   }
 
@@ -239,6 +244,8 @@ export default function ResponsiveDesignTester() {
     const deviceError = iframeError[device.id]
     const deviceBlocked = iframeBlocked[device.id]
 
+    const hasValidUrl = isValidUrl(url)
+
     return (
       <div
         className={`flex flex-col items-center space-y-3 transition-all duration-300 ${
@@ -272,7 +279,17 @@ export default function ResponsiveDesignTester() {
               overflow: "hidden",
             }}
           >
-            {deviceError || deviceBlocked ? (
+            {!hasValidUrl ? (
+              <div className="flex items-center justify-center h-full bg-muted">
+                <div className="text-center p-4 max-w-xs">
+                  <Monitor className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+                  <p className="text-sm font-medium text-foreground mb-1">Enter a URL to preview</p>
+                  <p className="text-xs text-muted-foreground">
+                    Type a website URL in the input field above to start previewing
+                  </p>
+                </div>
+              </div>
+            ) : deviceError || deviceBlocked ? (
               <div className="flex items-center justify-center h-full bg-muted">
                 <div className="text-center p-4 max-w-xs">
                   <AlertCircle className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
@@ -307,6 +324,7 @@ export default function ResponsiveDesignTester() {
                 onError={() => handleIframeError(device.id)}
                 onLoad={(e) => handleIframeLoad(device.id, e.currentTarget)}
                 referrerPolicy="no-referrer-when-downgrade"
+                key={`${device.id}-${url}`}
                 style={{
                   transform: `scale(${scale})`,
                   transformOrigin: "top left",
@@ -345,61 +363,89 @@ export default function ResponsiveDesignTester() {
   }
 
   const handleIframeError = (deviceId: string) => {
+    console.log(`[v0] Iframe error for ${deviceId}`)
     setIframeError((prev) => ({ ...prev, [deviceId]: true }))
+    setIframeBlocked((prev) => ({ ...prev, [deviceId]: false }))
   }
 
   const handleIframeLoad = (deviceId: string, iframe: HTMLIFrameElement) => {
+    console.log(`[v0] Iframe loaded for ${deviceId}`)
+
+    if (!isValidUrl(url)) {
+      console.log(`[v0] Skipping detection for ${deviceId} - invalid URL`)
+      return
+    }
+
+    if (detectionTimeouts.current[deviceId]) {
+      clearTimeout(detectionTimeouts.current[deviceId])
+    }
+
     setIframeError((prev) => ({ ...prev, [deviceId]: false }))
     setIframeBlocked((prev) => ({ ...prev, [deviceId]: false }))
 
-    setTimeout(() => {
+    detectionTimeouts.current[deviceId] = setTimeout(() => {
       try {
-        // Method 1: Check if iframe navigated to about:blank (some blocking scenarios)
-        if (iframe.src === "about:blank" || iframe.src === "") {
+        if (iframe.src === "about:blank" || iframe.src === "" || iframe.src === window.location.href) {
+          console.log(`[v0] Iframe blocked for ${deviceId} - redirected to about:blank or same origin`)
           setIframeBlocked((prev) => ({ ...prev, [deviceId]: true }))
           return
         }
 
-        // Method 2: Try to access contentDocument - this will be null for blocked iframes
-        // but will throw SecurityError for cross-origin (which is normal)
-        const doc = iframe.contentDocument
-        if (doc === null && iframe.contentWindow === null) {
-          // Both contentDocument and contentWindow are null - likely blocked
+        if (iframe.contentDocument === null && iframe.contentWindow === null) {
+          console.log(`[v0] Iframe blocked for ${deviceId} - no content access`)
           setIframeBlocked((prev) => ({ ...prev, [deviceId]: true }))
           return
         }
 
-        // Method 3: Check if contentWindow exists but document access is completely blocked
         if (iframe.contentWindow) {
           try {
-            // Try to access location - this will throw for cross-origin but be accessible for same-origin
             const location = iframe.contentWindow.location
-            // If we can access location and it's about:blank, it's likely blocked
-            if (location && location.href === "about:blank") {
+            if (
+              location &&
+              (location.href === "about:blank" || location.href === "" || location.href === window.location.href)
+            ) {
+              console.log(`[v0] Iframe blocked for ${deviceId} - location indicates blocking`)
               setIframeBlocked((prev) => ({ ...prev, [deviceId]: true }))
               return
             }
           } catch (e) {
-            // Cross-origin access error is normal - not blocked
             console.log(`[v0] Cross-origin access for ${deviceId} - normal behavior`)
           }
         }
 
-        // Method 4: Additional check after longer timeout for slow-loading blocked content
-        setTimeout(() => {
-          try {
-            if (iframe.contentDocument === null && iframe.contentWindow === null) {
-              setIframeBlocked((prev) => ({ ...prev, [deviceId]: true }))
-            }
-          } catch (e) {
-            // Ignore errors - likely cross-origin which is normal
-          }
-        }, 2000)
+        console.log(`[v0] Iframe working correctly for ${deviceId}`)
+        setIframeBlocked((prev) => ({ ...prev, [deviceId]: false }))
       } catch (error) {
-        // If we get here, it's likely a cross-origin restriction, not blocking
-        console.log(`[v0] Cross-origin access restriction for ${deviceId} - this is normal`)
+        console.log(`[v0] Unexpected error for ${deviceId}, treating as working:`, error)
+        setIframeBlocked((prev) => ({ ...prev, [deviceId]: false }))
       }
-    }, 1000)
+    }, 1500)
+  }
+
+  useEffect(() => {
+    return () => {
+      Object.values(detectionTimeouts.current).forEach((timeout) => clearTimeout(timeout))
+    }
+  }, [])
+
+  useEffect(() => {
+    Object.values(detectionTimeouts.current).forEach((timeout) => clearTimeout(timeout))
+    detectionTimeouts.current = {}
+
+    if (!isValidUrl(url)) {
+      setIframeError({})
+      setIframeBlocked({})
+    }
+  }, [url])
+
+  const isValidUrl = (urlString: string) => {
+    if (!urlString || urlString.trim() === "") return false
+    try {
+      const url = new URL(urlString)
+      return url.protocol === "http:" || url.protocol === "https:"
+    } catch {
+      return false
+    }
   }
 
   if (!mounted) {
@@ -636,8 +682,8 @@ export default function ResponsiveDesignTester() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                    <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                    <div className="flex items-center gap-1 bg-muted rounded-lg px-1 w-fit">
                       <Button
                         variant="ghost"
                         size="sm"
@@ -678,7 +724,7 @@ export default function ResponsiveDesignTester() {
                         className="h-8 px-2 sm:px-3 bg-transparent flex-1 sm:flex-initial"
                       >
                         <RotateCw className="w-3 h-3 sm:mr-1" />
-                        <span className="hidden sm:inline">Rotate</span>
+                        Rotate
                       </Button>
 
                       <Button
@@ -688,7 +734,7 @@ export default function ResponsiveDesignTester() {
                         className="h-8 px-2 sm:px-3 bg-transparent flex-1 sm:flex-initial"
                       >
                         <X className="w-3 h-3 sm:mr-1" />
-                        <span className="hidden sm:inline">Exit</span>
+                        Exit
                       </Button>
                     </div>
                   </div>

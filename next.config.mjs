@@ -14,13 +14,10 @@ const nextConfig = {
       {
         source: '/(.*)',
         headers: [
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN', // Allows embedding on same origin, use 'ALLOWALL' for any origin
-          },
+          // Using only CSP frame-ancestors directive which is more modern and flexible
           {
             key: 'Content-Security-Policy',
-            value: "frame-ancestors 'self' *", // Allows embedding from any origin
+            value: "frame-ancestors *", // Allows embedding from any origin
           },
         ],
       },

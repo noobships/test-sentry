@@ -1,10 +1,8 @@
-# 🛡️ TestSentry
+# ⛡ TestSentry
 
-<div align="center">
+<div align="left">
 
-![TestSentry Logo](https://via.placeholder.com/200x80/000000/FFFFFF?text=TestSentry+Logo)
-
-**A simple, powerful cross-device testing tool for web developers**
+**A simple, powerful cross-device testing tool for web developers.**
 
 [![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live-testsentry.vercel.app-brightgreen)](https://testsentry.vercel.app)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)

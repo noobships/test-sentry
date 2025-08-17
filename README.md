@@ -29,14 +29,14 @@ Right now, it's a straightforward tool where you can:
 **Multi-Device Testing Interface**
 <div align="center">
 
-![TestSentry Multi-Device Interface](https://rss7lu1con.ufs.sh/f/WPpLHLZ4aXfpwsRwONhUlpDmEQ5FkrN08Rd2aZIKPzsbnJhc)
+![TestSentry Multi-Device Interface](https://rss7lu1con.ufs.sh/f/WPpLHLZ4aXfphJsSqZlIlz8GQ1qkojRbuWKMxasrYF6dvZHt)
 
 </div>
 
 **Focus Mode for Detailed Inspection**
 <div align="center">
 
-![TestSentry Focus Mode](https://rss7lu1con.ufs.sh/f/WPpLHLZ4aXfpFY1zy5wXTd3ORNapDouhAtUmifBHLIs7nl0Y)
+![TestSentry Focus Mode](https://rss7lu1con.ufs.sh/f/WPpLHLZ4aXfpodkJd8v9OZsLkqiAU0rvbDGdF28anKQyTIJx)
 
 </div>
 

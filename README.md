@@ -4,7 +4,7 @@
 
 **A simple, powerful cross-device testing tool for web developers.**
 
-[![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live-testsentry.vercel.app-brightgreen)](https://testsentry.devstool.dev/)
+[![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live-testsentry.devstool.dev-brightgreen)](https://testsentry.devstool.dev/)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 

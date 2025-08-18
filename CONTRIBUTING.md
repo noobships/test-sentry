@@ -2,11 +2,11 @@
 
 Thanks for your interest in TestSentry! I'm a solo developer building this cross-device testing tool, and I'd genuinely love some help.
 
-## What I'm Building
+## ▪️ What I'm Building
 
 TestSentry aims to solve the frustrating problem of manual responsive testing. Right now it's basic, but I have big plans for AI-powered automation and background testing.
 
-## Getting Started
+## ▪️ Getting Started
 
 ### Prerequisites
 - Node.js 18+ and npm
@@ -14,7 +14,7 @@ TestSentry aims to solve the frustrating problem of manual responsive testing. R
 - Some React/TypeScript knowledge (beginner-friendly!)
 
 ### Setup
-\`\`\`bash
+```bash
 # Fork the repo and clone your fork
 git clone https://github.com/yourusername/test-sentry.git
 cd test-sentry
@@ -24,13 +24,13 @@ npm install
 npm run dev
 
 # Visit http://localhost:3000 and test it out!
-\`\`\`
+```
 
-## How You Can Help
+## ▪️ How You Can Help
 
 Since I'm solo, **any help is appreciated** - no contribution is too small!
 
-### ▪️ Found a Bug?
+### Found a Bug?
 Just [open an issue](https://github.com/noobships/test-sentry/issues/new) with:
 - What you were doing
 - What went wrong
@@ -38,32 +38,19 @@ Just [open an issue](https://github.com/noobships/test-sentry/issues/new) with:
 
 No need for formal templates - just tell me what broke!
 
-### ▪️ Have an idea?
+### Have an idea?
 I'm very open to suggestions! [Create an issue](https://github.com/noobships/test-sentry/issues/new) and let's discuss it.
 
-### ▪️ Want to Code?
+### Want to Code?
 **Perfect!** Here's what would help most right now:
 
-#### Easy Wins (Great for First-Time Contributors)
-- [ ] Fix mobile responsiveness issues
-- [ ] Add more device presets (Android phones, tablets, etc.)
-- [ ] Improve error handling and user feedback
-- [ ] Add keyboard shortcuts
-- [ ] Better loading states
+| **Difficulty** | **Tasks** |
+|:---|:---|
+| **Easy Wins**<br>*(Great for First-Time Contributors)* | `□` Fix mobile responsiveness issues<br>`□` Add more device presets (Android phones, tablets, etc.)<br>`□` Improve error handling and user feedback<br>`□` Add keyboard shortcuts<br>`□` Better loading states |
+| **Medium Difficulty** | `□` Custom device size input<br>`□` Screenshot capture functionality<br>`□` Dark mode improvements<br>`□` URL validation and better error messages |
+| **Advanced**<br>*(If You're Feeling Ambitious)* | `□` Multi-environment testing setup<br>`□` Performance monitoring integration<br>`□` Visual regression detection research<br>`□` Background testing architecture |
 
-#### Medium Difficulty
-- [ ] Custom device size input
-- [ ] Screenshot capture functionality
-- [ ] Dark mode improvements
-- [ ] URL validation and better error messages
-
-#### Advanced (If You're Feeling Ambitious)
-- [ ] Multi-environment testing setup
-- [ ] Performance monitoring integration
-- [ ] Visual regression detection research
-- [ ] Background testing architecture
-
-## Development Workflow
+## ▪️ Development Workflow
 
 Keep it simple:
 
@@ -82,7 +69,7 @@ Keep it simple:
 - **TypeScript** for safety
 - Don't worry too much - I'll help with any style issues in review!
 
-## Contribution Ideas
+## ▪️ Contribution Ideas
 
 Not sure where to start? Try these:
 
@@ -92,7 +79,7 @@ Not sure where to start? Try these:
 | **Testing** | Test on different browsers<br>Try edge cases and report issues<br>Test accessibility features |
 | **Features** | Look at the [GitHub issues](https://github.com/noobships/test-sentry/issues)<br>Pick something marked "good first issue"<br>Or suggest something new! |
 
-## Current Focus
+## ▪️ Current Focus
 
 Right now I'm focusing on:
 
@@ -102,7 +89,7 @@ Right now I'm focusing on:
 | `2.` | **Planning the AI automation features** - research and architecture |
 | `3.` | **Growing the community** - getting feedback and contributors |
 
-## Questions?
+## ▪️ Questions?
 
 I'm pretty responsive! You can:
 
@@ -111,7 +98,7 @@ I'm pretty responsive! You can:
 
 Check existing issues and discussions for common questions.
 
-## License
+## ▪️ License
 
 By contributing, you agree your contributions will be under the same MIT License as the project.
 

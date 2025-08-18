@@ -14,7 +14,7 @@ export function Footer() {
               <span className="font-semibold text-foreground">TestSentry</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Open-source tool for testing responsive designs across devices.
+            Open Source Testing Agent.
             </p>
           </div>
 
@@ -140,7 +140,7 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">© {currentYear} TestSentry. Open source under MIT License.</p>
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <span>Made with</span>
-              <Heart className="w-3 h-3 text-red-500 fill-current" />
+              <span className="text-foreground">♥</span>
               <span>for the community</span>
             </div>
           </div>

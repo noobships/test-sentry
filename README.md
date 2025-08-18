@@ -4,7 +4,7 @@
 
 **A simple, powerful cross-device testing tool for web developers.**
 
-[![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live-testsentry.vercel.app-brightgreen)](https://testsentry.vercel.app)
+[![Live Demo](https://img.shields.io/badge/🚀%20Try%20Live-testsentry.vercel.app-brightgreen)](https://testsentry.devstool.dev/)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
@@ -20,7 +20,7 @@ Right now, it's a straightforward tool where you can:
 - Switch between portrait/landscape orientations
 - Focus on individual devices for detailed inspection
 
-**[Try the live demo →](https://testsentry.vercel.app)**
+**[Try the live demo →](https://testsentry.devstool.dev/)**
 
 ## Screenshots
 

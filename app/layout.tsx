@@ -7,9 +7,29 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "TestSentry - Test Your Designs Across Devices",
-  description: "A dev tool to preview websites and web applications across various screen sizes and devices.",
+  title: "⛡ TestSentry - Open Source Testing Agent",
+  description: "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
   generator: "v0.dev",
+  openGraph: {
+    title: "⛡ TestSentry - Open Source Testing Agent",
+    description: "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
+    images: [
+      {
+        url: "/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "TestSentry - Open Source Testing Agent",
+      },
+    ],
+    type: "website",
+    siteName: "TestSentry",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "⛡ TestSentry - Open Source Testing Agent",
+    description: "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
+    images: ["/og-default.jpg"],
+  },
 }
 
 export default function RootLayout({

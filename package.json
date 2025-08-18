@@ -15,7 +15,7 @@
     "typescript",
     "tailwindcss"
   ],
-  "homepage": "https://testsentry.vercel.app",
+  "homepage": "https://testsentry.devstool.dev",
   "bugs": {
     "url": "https://github.com/yourusername/testsentry/issues"
   },
@@ -27,7 +27,7 @@
   "author": {
     "name": "TestSentry Team",
     "email": "hello@testsentry.dev",
-    "url": "https://testsentry.vercel.app"
+    "url": "https://testsentry.devstool.dev"
   },
   "scripts": {
     "analyze": "cross-env ANALYZE=true next build",

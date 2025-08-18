@@ -3,16 +3,20 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Analytics } from "@vercel/analytics/next"
+import { Suspense } from "react"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "⛡ TestSentry - Open Source Testing Agent",
-  description: "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
+  description:
+    "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
   generator: "v0.dev",
   openGraph: {
     title: "⛡ TestSentry - Open Source Testing Agent",
-    description: "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
+    description:
+      "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
     images: [
       {
         url: "/og-default.jpg",
@@ -27,7 +31,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "⛡ TestSentry - Open Source Testing Agent",
-    description: "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
+    description:
+      "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
     images: ["/og-default.jpg"],
   },
 }
@@ -44,9 +49,12 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
       </head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        <Suspense fallback={null}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+        </Suspense>
+        <Analytics />
         <script
           dangerouslySetInnerHTML={{
             __html: `

@@ -14,7 +14,7 @@ TestSentry aims to solve the frustrating problem of manual responsive testing. R
 - Some React/TypeScript knowledge (beginner-friendly!)
 
 ### Setup
-```bash
+\`\`\`bash
 # Fork the repo and clone your fork
 git clone https://github.com/yourusername/test-sentry.git
 cd test-sentry
@@ -24,7 +24,7 @@ npm install
 npm run dev
 
 # Visit http://localhost:3000 and test it out!
-```
+\`\`\`
 
 ## How You Can Help
 

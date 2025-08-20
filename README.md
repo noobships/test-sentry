@@ -78,16 +78,25 @@ I'm building TestSentry because I'm sick of repetitive manual testing. Here's th
 - **Playwright** (planned for cross-browser automation)
 - **AI integrations** (planned for intelligent testing agents)
 
-## Getting Started
+## ▪️ Getting Started
 
-\`\`\`bash
-git clone https://github.com/noobships/test-sentry.git
+### Prerequisites
+- Node.js 18+ and npm
+- Git
+- Some React/TypeScript knowledge (beginner-friendly!)
+
+### Setup
+```bash
+# Fork the repo and clone your fork
+git clone https://github.com/yourusername/test-sentry.git
 cd test-sentry
+
+# Install and run
 npm install
 npm run dev
-\`\`\`
 
-Open `http://localhost:3000` and test any website.
+# Visit http://localhost:3000 and test it out!
+```
 
 ## Contributing
 

@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
-    ignoreDuringBuilds: true,
+    // ESLint is now properly configured
+    // ignoreDuringBuilds: false, // Enable ESLint during builds
   },
   typescript: {
     ignoreBuildErrors: true,
@@ -17,12 +18,12 @@ const nextConfig = {
           // Using only CSP frame-ancestors directive which is more modern and flexible
           {
             key: 'Content-Security-Policy',
-            value: "frame-ancestors *", // Allows embedding from any origin
+            value: 'frame-ancestors *', // Allows embedding from any origin
           },
         ],
       },
-    ]
+    ];
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

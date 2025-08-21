@@ -1,57 +1,66 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import Script from "next/script"
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Analytics } from "@vercel/analytics/next"
-import { Suspense } from "react"
+import type React from 'react';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import Script from 'next/script';
+import './globals.css';
+import { ThemeProvider } from '@/components/theme-provider';
+import { Analytics } from '@vercel/analytics/next';
+import { Suspense } from 'react';
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "⛡ TestSentry - Open Source Testing Agent",
+  title: '⛡ TestSentry - Open Source Testing Agent',
   description:
-    "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
-  generator: "v0.dev",
+    'A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.',
+  generator: 'v0.dev',
   openGraph: {
-    title: "⛡ TestSentry - Open Source Testing Agent",
+    title: '⛡ TestSentry - Open Source Testing Agent',
     description:
-      "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
+      'A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.',
     images: [
       {
-        url: "/og-default.jpg",
+        url: '/og-default.jpg',
         width: 1200,
         height: 630,
-        alt: "TestSentry - Open Source Testing Agent",
+        alt: 'TestSentry - Open Source Testing Agent',
       },
     ],
-    type: "website",
-    siteName: "TestSentry",
+    type: 'website',
+    siteName: 'TestSentry',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "⛡ TestSentry - Open Source Testing Agent",
+    card: 'summary_large_image',
+    title: '⛡ TestSentry - Open Source Testing Agent',
     description:
-      "A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.",
-    images: ["/og-default.jpg"],
+      'A simple, powerful cross-device testing tool for web developers. Test any website across multiple devices simultaneously with AI-powered automation planned.',
+    images: ['/og-default.jpg'],
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#ffffff" />
-        <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+        <meta
+          name="theme-color"
+          content="#000000"
+          media="(prefers-color-scheme: dark)"
+        />
       </head>
       <body className={inter.className}>
         <Suspense fallback={null}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             {children}
           </ThemeProvider>
         </Suspense>
@@ -98,5 +107,5 @@ export default function RootLayout({
         />
       </body>
     </html>
-  )
+  );
 }

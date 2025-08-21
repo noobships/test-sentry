@@ -71,10 +71,19 @@ Keep it simple:
 
 ### Code Style
 
-- **Prettier** handles formatting (already set up)
-- **ESLint** catches issues (runs on commit)
+- **Prettier** handles formatting (configured in `.prettierrc`)
+- **ESLint** catches issues (configured in `.eslintrc.json`)
 - **TypeScript** for safety
-- Don't worry too much - I'll help with any style issues in review!
+- **EditorConfig** ensures consistent editor settings
+
+**Before submitting PRs, run:**
+
+```bash
+pnpm lint:fix    # Fix linting issues
+pnpm format      # Fix formatting issues
+```
+
+Don't worry too much about style - these tools will help you automatically!
 
 ## ▪️ Contribution Ideas
 

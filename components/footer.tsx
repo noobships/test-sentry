@@ -1,7 +1,7 @@
-import { ExternalLink, Github, Heart } from "lucide-react"
+import { ExternalLink, Github, Heart } from 'lucide-react';
 
 export function Footer() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-background/95 backdrop-blur-sm">
@@ -14,7 +14,7 @@ export function Footer() {
               <span className="font-semibold text-foreground">TestSentry</span>
             </div>
             <p className="text-sm text-muted-foreground">
-            Open Source Testing Agent.
+              Open Source Testing Agent.
             </p>
           </div>
 
@@ -137,7 +137,9 @@ export function Footer() {
       <div className="border-t border-border w-full">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">© {currentYear} TestSentry. Open source under MIT License.</p>
+            <p className="text-sm text-muted-foreground">
+              © {currentYear} TestSentry. Open source under MIT License.
+            </p>
             <div className="flex items-center gap-1 text-sm text-muted-foreground">
               <span>Made with</span>
               <span className="text-foreground">♥</span>
@@ -147,5 +149,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

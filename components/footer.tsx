@@ -1,4 +1,4 @@
-import { ExternalLink, Github, Heart } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();

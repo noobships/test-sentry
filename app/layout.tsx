@@ -81,6 +81,7 @@ export default function RootLayout({
         />
 
         <Script
+          id="theme-color-script"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {

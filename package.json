@@ -43,11 +43,18 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "start": "next start",
-    "test": "jest",
-    "test:e2e": "playwright test",
-    "test:watch": "jest --watch",
     "type-check": "tsc --noEmit",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -116,6 +123,8 @@
     "@typescript-eslint/parser": "^8.40.0",
     "eslint": "^9.33.0",
     "eslint-config-next": "^15.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
     "only-allow": "^1.2.1",
     "postcss": "^8.5",
     "prettier": "^3.6.2",

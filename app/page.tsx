@@ -108,7 +108,7 @@ export default function ResponsiveDesignTester() {
   ]);
   const [url, setUrl] = useState('https://openai.com/gpt-5/');
   const [isLandscape, setIsLandscape] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false); // Removed unused variable
   const [iframeError, setIframeError] = useState<Record<string, boolean>>({});
   const [iframeBlocked, setIframeBlocked] = useState<Record<string, boolean>>(
     {}
@@ -134,19 +134,19 @@ export default function ResponsiveDesignTester() {
     setMounted(true);
   }, []);
 
-  const handleUrlSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setIframeError({});
-    setIframeBlocked({});
+  // const handleUrlSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   setIframeError({});
+  //   setIframeBlocked({});
 
-    Object.values(detectionTimeouts.current).forEach((timeout) =>
-      clearTimeout(timeout)
-    );
-    detectionTimeouts.current = {};
+  //   Object.values(detectionTimeouts.current).forEach((timeout) =>
+  //     clearTimeout(timeout)
+  //   );
+  //   detectionTimeouts.current = {};
 
-    setTimeout(() => setIsLoading(false), 1000);
-  };
+  //   setTimeout(() => setIsLoading(false), 1000);
+  // };
 
   const toggleOrientation = () => {
     setIsLandscape(!isLandscape);
@@ -186,13 +186,13 @@ export default function ResponsiveDesignTester() {
     }
   };
 
-  const resetZoom = () => {
-    if (focusedDevice) {
-      setFocusZoom(1.5);
-    } else {
-      setZoomLevel(1);
-    }
-  };
+  // const resetZoom = () => {
+  //   if (focusedDevice) {
+  //     setFocusZoom(1.5);
+  //   } else {
+  //     setZoomLevel(1);
+  //   }
+  // };
 
   const handleCustomZoom = (value: string) => {
     setCustomZoomInput(value);
@@ -451,7 +451,7 @@ export default function ResponsiveDesignTester() {
               setIframeBlocked((prev) => ({ ...prev, [deviceId]: true }));
               return;
             }
-          } catch (e) {
+          } catch {
             console.log(
               `[v0] Cross-origin access for ${deviceId} - normal behavior`
             );
@@ -851,7 +851,8 @@ export default function ResponsiveDesignTester() {
                     No devices selected
                   </h3>
                   <p className="text-muted-foreground">
-                    Click "Select Devices" to choose devices for preview
+                    Click &quot;Select Devices&quot; to choose devices for
+                    preview
                   </p>
                 </div>
               </div>

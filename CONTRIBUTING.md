@@ -58,32 +58,83 @@ I'm very open to suggestions! [Create an issue](https://github.com/noobships/tes
 
 ## ▪️ Development Workflow
 
-Keep it simple:
+**⚠️ Important: This project has strict quality gates that will block commits and deployments if not met.**
 
-| **Step** | **Action**                                              |
-| :------- | :------------------------------------------------------ |
-| `1.`     | **Fork the repo**                                       |
-| `2.`     | **Create a branch**: `git checkout -b fix/your-feature` |
-| `3.`     | **Make changes**                                        |
-| `4.`     | **Test locally**: Make sure `pnpm dev` still works      |
-| `5.`     | **Commit**: Use clear commit messages                   |
-| `6.`     | **Push and create PR**                                  |
+### Quality Gates
+
+Before any code can be committed or deployed, it must pass:
+
+1. **Prettier formatting** - Code must match project formatting standards
+2. **ESLint checks** - Zero warnings allowed (`--max-warnings=0`)
+3. **TypeScript type checking** - All types must be valid
+4. **Build process** - Must build successfully
+
+### Development Steps
+
+| **Step** | **Action**                                              | **Quality Check**                   |
+| :------- | :------------------------------------------------------ | :---------------------------------- |
+| `1.`     | **Fork the repo**                                       | -                                   |
+| `2.`     | **Create a branch**: `git checkout -b fix/your-feature` | -                                   |
+| `3.`     | **Make changes**                                        | -                                   |
+| `4.`     | **Test locally**: Run quality checks                    | `pnpm build` (includes all checks)  |
+| `5.`     | **Commit**: Husky will auto-run checks                  | Pre-commit hook enforces quality    |
+| `6.``    | **Push and create PR**                                  | GitHub Actions run full CI pipeline |
+
+### Local Quality Checks
+
+**Always run these before committing:**
+
+```bash
+# Quick check - will fail if any issues found
+pnpm build
+
+# Or run individual checks:
+pnpm format:check    # Check formatting
+pnpm lint:ci         # Strict linting (fails on warnings)
+pnpm type-check      # TypeScript validation
+```
+
+**If you have issues, fix them with:**
+
+```bash
+pnpm format          # Fix formatting
+pnpm lint:fix        # Fix auto-fixable lint issues
+```
 
 ### Code Style
 
 - **Prettier** handles formatting (configured in `.prettierrc`)
-- **ESLint** catches issues (configured in `.eslintrc.json`)
+- **ESLint** with TypeScript support catches issues (configured in `.eslintrc.json`)
 - **TypeScript** for safety
-- **EditorConfig** ensures consistent editor settings
+- **Husky** enforces quality on every commit
 
-**Before submitting PRs, run:**
+**The project uses strict ESLint rules:**
 
-```bash
-pnpm lint:fix    # Fix linting issues
-pnpm format      # Fix formatting issues
+- Zero warnings allowed in CI
+- TypeScript-specific rules enabled
+- Unused variables must be prefixed with `_` or removed
+
+## ▪️ What Happens When You Submit a PR
+
+1. **GitHub Actions** automatically run the full quality pipeline
+2. **All checks must pass** before the PR can be merged
+3. **Vercel** will only deploy if CI passes
+4. **Code review** focuses on logic, not formatting (tools handle that)
+
+### CI Pipeline
+
+The GitHub Actions workflow runs:
+
+```yaml
+- Checkout code
+- Setup Node.js & pnpm
+- Install dependencies
+- Check code formatting (Prettier)
+- Run ESLint (strict mode - no warnings)
+- Type check (TypeScript)
+- Build project
+- Verify build output
 ```
-
-Don't worry too much about style - these tools will help you automatically!
 
 ## ▪️ Contribution Ideas
 
@@ -105,6 +156,29 @@ Right now I'm focusing on:
 |     `2.`     | **Planning the AI automation features** - research and architecture |
 |     `3.`     | **Growing the community** - getting feedback and contributors       |
 
+## ▪️ Troubleshooting
+
+### Common Issues
+
+**"Husky pre-commit hook failed"**
+
+- Run `pnpm build` to see what's failing
+- Fix formatting: `pnpm format`
+- Fix lint issues: `pnpm lint:fix`
+- Fix type issues: Check TypeScript errors
+
+**"GitHub Actions failed"**
+
+- Check the Actions tab for specific failure reasons
+- Usually formatting, lint warnings, or type errors
+- Fix locally and push again
+
+**"Build fails locally"**
+
+- Ensure you're using Node.js 20+ and pnpm 10.15.0+
+- Try `pnpm install --force` to refresh dependencies
+- Check for TypeScript errors in your editor
+
 ## ▪️ Questions?
 
 I'm pretty responsive! You can:
@@ -121,3 +195,5 @@ By contributing, you agree your contributions will be under the same MIT License
 ---
 
 **Thanks for considering contributing! Even small improvements make a huge difference for a solo project like this.**
+
+**Remember: The quality gates are there to help, not hinder. They ensure everyone's code meets the same high standards!**

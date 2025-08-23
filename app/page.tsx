@@ -565,7 +565,7 @@ export default function ResponsiveDesignTester() {
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
-                <DrawerTitle>Select Devices</DrawerTitle>
+                <DrawerTitle>Add Devices</DrawerTitle>
                 <DrawerDescription>
                   Choose which devices to preview your website on
                 </DrawerDescription>
@@ -818,8 +818,7 @@ export default function ResponsiveDesignTester() {
                     No devices selected
                   </h3>
                   <p className="text-muted-foreground">
-                    Click &quot;Select Devices&quot; to choose devices for
-                    preview
+                    Click &quot;Add Devices&quot; to add devices for preview
                   </p>
                 </div>
               </div>

@@ -7,6 +7,7 @@
 [![Live Demo](https://img.shields.io/badge/🚀_Try_Live-testsentry.devstool.dev-000000?style=for-the-badge)](https://testsentry.devstool.dev/)
 [![MIT License](https://img.shields.io/badge/License-MIT-white?style=for-the-badge&logo=opensourceinitiative&logoColor=black)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-000000?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-000000?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/noobships/test-sentry/actions)
 
 </div>
 
@@ -103,6 +104,38 @@ pnpm dev
 
 Open `http://localhost:3000` and test any website.
 
+## Development & Quality
+
+This project maintains high code quality standards through automated checks:
+
+### 🚀 Available Scripts
+
+```bash
+pnpm dev          # Start development server
+pnpm build        # Build for production (includes quality checks)
+pnpm start        # Start production server
+pnpm lint         # Check for linting issues
+pnpm lint:ci      # Strict linting (fails on warnings)
+pnpm lint:fix     # Auto-fix linting issues
+pnpm format       # Format code with Prettier
+pnpm format:check # Check code formatting
+pnpm type-check   # Run TypeScript type checking
+```
+
+### 🛡️ Quality Gates
+
+- **Pre-commit hooks** (Husky) ensure code quality before commits
+- **GitHub Actions** run full quality checks on every push/PR
+- **Vercel deployments** only succeed after passing all quality checks
+- **Zero tolerance** for lint warnings or formatting issues
+
+### 🔧 Code Quality Tools
+
+- **ESLint** with TypeScript support and strict rules
+- **Prettier** for consistent code formatting
+- **TypeScript** for type safety
+- **Husky** for pre-commit quality enforcement
+
 ## Contributing
 
 This is a new open source project and I'd love help! Whether you:
@@ -122,6 +155,7 @@ This is a new open source project and I'd love help! Whether you:
 |    `✓`     | Basic multi-device preview working               |
 |    `✓`     | Clean, simple interface                          |
 |    `✓`     | Deployed and stable                              |
+|    `✓`     | Quality gates and CI/CD pipeline                 |
 |    `○`     | Planning AI automation features                  |
 |    `○`     | Researching cross-browser testing implementation |
 |    `○`     | Designing the agent-based testing architecture   |

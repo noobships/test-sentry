@@ -734,77 +734,75 @@ export default function ResponsiveDesignTester() {
 
         {focusedDevice && focusedDeviceObject && (
           <div className="mb-6">
-            <Card className="border-border bg-card">
-              <div className="p-2 sm:p-4">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                    <Badge variant="default">
-                      Focused: {focusedDeviceObject.name}
-                    </Badge>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <span>
-                        {isLandscape
-                          ? focusedDeviceObject.height
-                          : focusedDeviceObject.width}{' '}
-                        ×{' '}
-                        {isLandscape
-                          ? focusedDeviceObject.width
-                          : focusedDeviceObject.height}
-                      </span>
-                    </div>
+            <div className="p-2 sm:p-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                  <Badge variant="default">
+                    Focused: {focusedDeviceObject.name}
+                  </Badge>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <span>
+                      {isLandscape
+                        ? focusedDeviceObject.height
+                        : focusedDeviceObject.width}{' '}
+                      ×{' '}
+                      {isLandscape
+                        ? focusedDeviceObject.width
+                        : focusedDeviceObject.height}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 ">
+                  <div className="flex items-center gap-1 bg-muted rounded-lg w-fit">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={zoomOut}
+                      disabled={focusZoom <= 0.5}
+                    >
+                      <ZoomOut />
+                    </Button>
+                    <Input
+                      type="number"
+                      min="10"
+                      max="500"
+                      value={customZoomInput || Math.round(focusZoom * 100)}
+                      onChange={(e) => handleCustomZoom(e.target.value)}
+                      onFocus={syncZoomInput}
+                      onBlur={() => setCustomZoomInput('')}
+                      className="h-8 w-14 sm:w-16 px-1 sm:px-2 text-xs font-mono text-center border-0 bg-transparent"
+                      placeholder={Math.round(focusZoom * 100).toString()}
+                    />
+                    <span className="text-xs text-muted-foreground">%</span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={zoomIn}
+                      disabled={focusZoom >= 3}
+                    >
+                      <ZoomIn />
+                    </Button>
                   </div>
 
-                  <div className="flex items-center gap-2 ">
-                    <div className="flex items-center gap-1 bg-muted rounded-lg w-fit">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={zoomOut}
-                        disabled={focusZoom <= 0.5}
-                      >
-                        <ZoomOut />
-                      </Button>
-                      <Input
-                        type="number"
-                        min="10"
-                        max="500"
-                        value={customZoomInput || Math.round(focusZoom * 100)}
-                        onChange={(e) => handleCustomZoom(e.target.value)}
-                        onFocus={syncZoomInput}
-                        onBlur={() => setCustomZoomInput('')}
-                        className="h-8 w-14 sm:w-16 px-1 sm:px-2 text-xs font-mono text-center border-0 bg-transparent"
-                        placeholder={Math.round(focusZoom * 100).toString()}
-                      />
-                      <span className="text-xs text-muted-foreground">%</span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={zoomIn}
-                        disabled={focusZoom >= 3}
-                      >
-                        <ZoomIn />
-                      </Button>
-                    </div>
+                  <div className="flex gap-1 ml-auto">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={toggleOrientation}
+                    >
+                      <RotateCw />
+                      Rotate
+                    </Button>
 
-                    <div className="flex gap-1 ml-auto">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={toggleOrientation}
-                      >
-                        <RotateCw />
-                        Rotate
-                      </Button>
-
-                      <Button variant="outline" size="sm" onClick={exitFocus}>
-                        <X />
-                        Exit
-                      </Button>
-                    </div>
+                    <Button variant="outline" size="sm" onClick={exitFocus}>
+                      <X />
+                      Exit
+                    </Button>
                   </div>
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
         )}
 

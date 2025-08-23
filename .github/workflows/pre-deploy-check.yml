@@ -30,8 +30,8 @@ jobs:
       - name: Check code formatting
         run: pnpm format:check
 
-      - name: Run ESLint
-        run: pnpm lint
+      - name: Run ESLint (fail on warnings)
+        run: pnpm lint:ci
 
       - name: Type check
         run: pnpm type-check

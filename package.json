@@ -36,11 +36,12 @@
   },
   "scripts": {
     "analyze": "cross-env ANALYZE=true next build",
-    "build": "next build",
+    "build": "pnpm format:check && pnpm lint:ci && pnpm type-check && next build",
     "dev": "next dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "next lint",
+    "lint:ci": "next lint --max-warnings=0",
     "lint:fix": "next lint --fix",
     "start": "next start",
     "type-check": "tsc --noEmit",

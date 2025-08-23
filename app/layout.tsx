@@ -49,7 +49,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
         <meta
           name="theme-color"
-          content="#000000"
+          content="#0a0a0a"
           media="(prefers-color-scheme: dark)"
         />
       </head>
@@ -89,7 +89,7 @@ export default function RootLayout({
                   const isDark = document.documentElement.classList.contains('dark');
                   const themeColorMeta = document.querySelector('meta[name="theme-color"]:not([media])');
                   if (themeColorMeta) {
-                    themeColorMeta.setAttribute('content', isDark ? '#000000' : '#ffffff');
+                    themeColorMeta.setAttribute('content', isDark ? '#0a0a0a' : '#ffffff');
                   }
                 }
                 

@@ -31,6 +31,7 @@ import {
   X,
   Focus,
   Layers,
+  Plus,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { GitHubStats } from '@/components/github-stats';
@@ -350,7 +351,7 @@ export default function ResponsiveDesignTester() {
             ) : (
               <iframe
                 src={url}
-                className="w-full h-full border-0 bg-background scrollable-no-bars"
+                className="w-full h-full border-0 bg-background"
                 title={`${device.name} Preview`}
                 onError={() => handleIframeError(device.id)}
                 onLoad={(e) => handleIframeLoad(device.id, e.currentTarget)}
@@ -369,23 +370,13 @@ export default function ResponsiveDesignTester() {
 
         {isFocused && (
           <div className="flex items-center justify-center gap-1 sm:gap-2 mt-4 w-full max-w-xs sm:max-w-none">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={toggleOrientation}
-              className="h-8 px-2 sm:px-3 text-xs bg-transparent flex-shrink-0"
-            >
-              <RotateCw className="w-3 h-3 sm:mr-1" />
-              <span className="hidden sm:inline">Rotate</span>
+            <Button variant="outline" size="sm" onClick={toggleOrientation}>
+              <RotateCw />
+              Rotate
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={exitFocus}
-              className="h-8 px-2 sm:px-3 text-xs bg-transparent flex-shrink-0"
-            >
-              <X className="w-3 h-3 sm:mr-1" />
-              <span className="hidden sm:inline">Exit</span>
+            <Button variant="outline" size="sm" onClick={exitFocus}>
+              <X />
+              Exit
             </Button>
           </div>
         )}
@@ -545,10 +536,9 @@ export default function ResponsiveDesignTester() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="rounded-full hover:bg-accent transition-colors duration-200"
               >
-                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <Sun className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               </Button>
             </div>
           </div>
@@ -557,33 +547,22 @@ export default function ResponsiveDesignTester() {
 
       <div className="container mx-auto px-4 pt-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-6">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <h2 className="text-lg font-semibold text-foreground">
               Device Preview
             </h2>
-            <Badge
-              variant="secondary"
-              className="bg-secondary text-secondary-foreground w-fit"
-            >
-              {selectedDevices.length} selected
-            </Badge>
+            <Badge variant="secondary">{selectedDevices.length} selected</Badge>
           </div>
 
           <Drawer>
             <DrawerTrigger asChild>
-              <Button
-                variant="outline"
-                className="bg-transparent w-full sm:w-auto"
-              >
-                <Layers className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Select Devices</span>
-                <span className="sm:hidden">Devices</span>
-                <span className="ml-2 text-xs bg-muted px-2 py-1 rounded">
-                  {selectedDevices.length}
-                </span>
+              <Button className="w-full sm:w-auto">
+                <Plus />
+                Add Devices
+                <span className="font-mono">({selectedDevices.length})</span>
               </Button>
             </DrawerTrigger>
-            <DrawerContent className="max-h-[80vh]">
+            <DrawerContent>
               <DrawerHeader>
                 <DrawerTitle>Select Devices</DrawerTitle>
                 <DrawerDescription>
@@ -597,7 +576,7 @@ export default function ResponsiveDesignTester() {
                     variant="outline"
                     size="sm"
                     onClick={selectAllDevices}
-                    className="flex-1 text-xs bg-transparent"
+                    className="flex-1"
                   >
                     Select All
                   </Button>
@@ -605,7 +584,7 @@ export default function ResponsiveDesignTester() {
                     variant="outline"
                     size="sm"
                     onClick={clearAllDevices}
-                    className="flex-1 text-xs bg-transparent"
+                    className="flex-1"
                   >
                     Clear All
                   </Button>
@@ -613,9 +592,9 @@ export default function ResponsiveDesignTester() {
                     variant="outline"
                     size="sm"
                     onClick={toggleOrientation}
-                    className="flex-1 text-xs bg-transparent"
+                    className="flex-1"
                   >
-                    <RotateCcw className="w-4 h-4 mr-1" />
+                    <RotateCcw />
                     Rotate All
                   </Button>
                 </div>
@@ -637,20 +616,20 @@ export default function ResponsiveDesignTester() {
                             return (
                               <div
                                 key={device.id}
-                                className={`flex items-center space-x-3 p-3 rounded-lg border transition-all duration-200 cursor-pointer ${
+                                className={`flex items-center space-x-3 p-3 rounded-lg border cursor-pointer ${
                                   isSelected
-                                    ? 'border-primary bg-accent'
+                                    ? 'border-primary'
                                     : 'border-border hover:border-muted-foreground hover:bg-accent'
                                 }`}
                                 onClick={() => toggleDeviceSelection(device.id)}
                               >
-                                <Checkbox
-                                  checked={isSelected}
-                                  onCheckedChange={() =>
-                                    toggleDeviceSelection(device.id)
-                                  }
+                                <Icon
+                                  className={`${
+                                    isSelected
+                                      ? 'text-foreground'
+                                      : 'text-muted-foreground'
+                                  }`}
                                 />
-                                <Icon className="w-4 h-4 text-muted-foreground" />
                                 <div className="flex-1">
                                   <div className="font-medium text-sm text-foreground">
                                     {device.name}
@@ -659,6 +638,12 @@ export default function ResponsiveDesignTester() {
                                     {device.width} × {device.height}
                                   </div>
                                 </div>
+                                <Checkbox
+                                  checked={isSelected}
+                                  onCheckedChange={() =>
+                                    toggleDeviceSelection(device.id)
+                                  }
+                                />
                               </div>
                             );
                           })}
@@ -675,95 +660,84 @@ export default function ResponsiveDesignTester() {
       <div className="container mx-auto px-4 pb-8 flex-1">
         {!focusedDevice && selectedDevices.length > 0 && (
           <div className="mb-6">
-            <Card className="border-border bg-card transition-colors duration-200">
-              <div className="flex items-center justify-between flex-wrap gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>
-                      Orientation: {isLandscape ? 'Landscape' : 'Portrait'}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={zoomOut}
-                      disabled={
-                        focusedDevice ? focusZoom <= 0.5 : zoomLevel <= 0.25
-                      }
-                      className="h-8 px-2"
-                    >
-                      <ZoomOut className="w-4 h-4" />
-                    </Button>
-                    <Input
-                      type="number"
-                      min="10"
-                      max="500"
-                      value={
-                        customZoomInput ||
-                        Math.round(
-                          (focusedDevice ? focusZoom : zoomLevel) * 100
-                        )
-                      }
-                      onChange={(e) => handleCustomZoom(e.target.value)}
-                      onFocus={syncZoomInput}
-                      onBlur={() => setCustomZoomInput('')}
-                      className="h-8 w-16 px-2 text-xs font-mono text-center border-0 bg-transparent"
-                      placeholder={Math.round(
-                        (focusedDevice ? focusZoom : zoomLevel) * 100
-                      ).toString()}
-                    />
-                    <span className="text-xs text-muted-foreground">%</span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={zoomIn}
-                      disabled={focusedDevice ? focusZoom >= 3 : zoomLevel >= 3}
-                      className="h-8 px-2"
-                    >
-                      <ZoomIn className="w-4 h-4" />
-                    </Button>
-                  </div>
-
-                  <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
-                    <Button
-                      variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                      size="sm"
-                      onClick={() => setViewMode('grid')}
-                      className="h-8 px-3"
-                    >
-                      <Grid3X3 className="w-4 h-4 mr-1" />
-                      Grid
-                    </Button>
-                    <Button
-                      variant={viewMode === 'single' ? 'default' : 'ghost'}
-                      size="sm"
-                      onClick={() => setViewMode('single')}
-                      className="h-8 px-3"
-                    >
-                      <Maximize2 className="w-4 h-4 mr-1" />
-                      Single
-                    </Button>
-                  </div>
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <span>
+                    Orientation: {isLandscape ? 'Landscape' : 'Portrait'}
+                  </span>
                 </div>
               </div>
-            </Card>
+
+              <div className="flex items-center gap-2 sm:w-fit w-full">
+                <div className="flex items-center gap-1 rounded-lg bg-muted">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={zoomOut}
+                    disabled={
+                      focusedDevice ? focusZoom <= 0.5 : zoomLevel <= 0.25
+                    }
+                  >
+                    <ZoomOut />
+                  </Button>
+                  <Input
+                    type="number"
+                    min="10"
+                    max="500"
+                    value={
+                      customZoomInput ||
+                      Math.round((focusedDevice ? focusZoom : zoomLevel) * 100)
+                    }
+                    onChange={(e) => handleCustomZoom(e.target.value)}
+                    onFocus={syncZoomInput}
+                    onBlur={() => setCustomZoomInput('')}
+                    className="h-8 w-16 px-2 text-xs font-mono text-center border-0 bg-transparent"
+                    placeholder={Math.round(
+                      (focusedDevice ? focusZoom : zoomLevel) * 100
+                    ).toString()}
+                  />
+                  <span className="text-xs text-muted-foreground">%</span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={zoomIn}
+                    disabled={focusedDevice ? focusZoom >= 3 : zoomLevel >= 3}
+                  >
+                    <ZoomIn />
+                  </Button>
+                </div>
+
+                <div className="flex items-center gap-1 bg-muted rounded-lg ml-auto">
+                  <Button
+                    variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                    size="sm"
+                    onClick={() => setViewMode('grid')}
+                  >
+                    <Grid3X3 />
+                    Grid
+                  </Button>
+                  <Button
+                    variant={viewMode === 'single' ? 'default' : 'ghost'}
+                    size="sm"
+                    onClick={() => setViewMode('single')}
+                  >
+                    <Maximize2 />
+                    Single
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
         {focusedDevice && focusedDeviceObject && (
           <div className="mb-6">
-            <Card className="border-border bg-card transition-colors duration-200">
+            <Card className="border-border bg-card">
               <div className="p-2 sm:p-4">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                    <Badge
-                      variant="default"
-                      className="bg-primary text-primary-foreground w-fit"
-                    >
+                    <Badge variant="default">
                       Focused: {focusedDeviceObject.name}
                     </Badge>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -779,16 +753,15 @@ export default function ResponsiveDesignTester() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                    <div className="flex items-center gap-1 bg-muted rounded-lg px-1 w-fit">
+                  <div className="flex items-center gap-2 ">
+                    <div className="flex items-center gap-1 bg-muted rounded-lg w-fit">
                       <Button
                         variant="ghost"
-                        size="sm"
+                        size="icon"
                         onClick={zoomOut}
                         disabled={focusZoom <= 0.5}
-                        className="h-8 px-2 flex-shrink-0"
                       >
-                        <ZoomOut className="w-4 h-4" />
+                        <ZoomOut />
                       </Button>
                       <Input
                         type="number"
@@ -807,30 +780,23 @@ export default function ResponsiveDesignTester() {
                         size="sm"
                         onClick={zoomIn}
                         disabled={focusZoom >= 3}
-                        className="h-8 px-2 flex-shrink-0"
                       >
-                        <ZoomIn className="w-4 h-4" />
+                        <ZoomIn />
                       </Button>
                     </div>
 
-                    <div className="flex gap-1 sm:gap-2">
+                    <div className="flex gap-1 ml-auto">
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={toggleOrientation}
-                        className="h-8 px-2 sm:px-3 bg-transparent flex-1 sm:flex-initial"
                       >
-                        <RotateCw className="w-3 h-3 sm:mr-1" />
+                        <RotateCw />
                         Rotate
                       </Button>
 
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={exitFocus}
-                        className="h-8 px-2 sm:px-3 bg-transparent flex-1 sm:flex-initial"
-                      >
-                        <X className="w-3 h-3 sm:mr-1" />
+                      <Button variant="outline" size="sm" onClick={exitFocus}>
+                        <X />
                         Exit
                       </Button>
                     </div>
@@ -841,7 +807,7 @@ export default function ResponsiveDesignTester() {
           </div>
         )}
 
-        <Card className="border-border bg-muted/50 transition-colors duration-200 overflow-hidden">
+        <Card className="border-border bg-muted/50 overflow-hidden">
           <div className="min-h-[700px] p-8">
             {selectedDevices.length === 0 ? (
               <div className="flex items-center justify-center h-full">
